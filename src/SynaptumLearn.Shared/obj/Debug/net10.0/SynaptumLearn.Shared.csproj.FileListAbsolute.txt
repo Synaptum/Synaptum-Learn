@@ -1,0 +1,11 @@
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\bin\Debug\net10.0\SynaptumLearn.Shared.deps.json
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\bin\Debug\net10.0\SynaptumLearn.Shared.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\bin\Debug\net10.0\SynaptumLearn.Shared.pdb
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.AssemblyInfoInputs.cache
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.AssemblyInfo.cs
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\refint\SynaptumLearn.Shared.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.pdb
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\ref\SynaptumLearn.Shared.dll

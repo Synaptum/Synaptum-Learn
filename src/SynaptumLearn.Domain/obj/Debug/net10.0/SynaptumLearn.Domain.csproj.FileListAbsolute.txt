@@ -1,0 +1,11 @@
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\bin\Debug\net10.0\SynaptumLearn.Domain.deps.json
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\bin\Debug\net10.0\SynaptumLearn.Domain.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\bin\Debug\net10.0\SynaptumLearn.Domain.pdb
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\SynaptumLearn.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\SynaptumLearn.Domain.AssemblyInfoInputs.cache
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\SynaptumLearn.Domain.AssemblyInfo.cs
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\SynaptumLearn.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\SynaptumLearn.Domain.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\refint\SynaptumLearn.Domain.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\SynaptumLearn.Domain.pdb
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Domain\obj\Debug\net10.0\ref\SynaptumLearn.Domain.dll

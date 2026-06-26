@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FCd9PlBl5gk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tsebang Maduna\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

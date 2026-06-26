@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SynaptumLearn.Application/SynaptumLearn.Application.csproj" />
+    <Project Path="src/SynaptumLearn.Domain/SynaptumLearn.Domain.csproj" />
+    <Project Path="src/SynaptumLearn.Infrastructure/SynaptumLearn.Infrastructure.csproj" />
+    <Project Path="src/SynaptumLearn.Persistence/SynaptumLearn.Persistence.csproj" />
+    <Project Path="src/SynaptumLearn.Shared/SynaptumLearn.Shared.csproj" />
+    <Project Path="src/SynaptumLearn.Web/SynaptumLearn.Web.csproj" />
+  </Folder>
+</Solution>
