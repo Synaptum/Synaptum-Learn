@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SynaptumLearn.Domain.Schools;
@@ -13,7 +14,7 @@ public class TeacherSubjectConfiguration : IEntityTypeConfiguration<TeacherSubje
         builder.HasKey(x => x.Id);
 
         builder.HasOne(x => x.TeacherProfile)
-            .WithMany()
+            .WithMany(x => x.TeacherSubjects)
             .HasForeignKey(x => x.TeacherProfileId)
             .OnDelete(DeleteBehavior.Restrict);
 

@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SynaptumLearn.Domain.Analytics;
@@ -16,12 +17,12 @@ public class LessonProgressConfiguration : IEntityTypeConfiguration<LessonProgre
             .HasPrecision(5, 2);
 
         builder.HasOne(x => x.LearnerProfile)
-            .WithMany()
+            .WithMany(x => x.LessonProgresses)
             .HasForeignKey(x => x.LearnerProfileId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Lesson)
-            .WithMany()
+            .WithMany(x => x.LessonProgresses)
             .HasForeignKey(x => x.LessonId)
             .OnDelete(DeleteBehavior.Restrict);
 

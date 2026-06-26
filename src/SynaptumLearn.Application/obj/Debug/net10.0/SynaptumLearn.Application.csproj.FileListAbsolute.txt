@@ -15,3 +15,4 @@ C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\Sy
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Application\obj\Debug\net10.0\refint\SynaptumLearn.Application.dll
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Application\obj\Debug\net10.0\SynaptumLearn.Application.pdb
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Application\obj\Debug\net10.0\ref\SynaptumLearn.Application.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Application\obj\Debug\net10.0\SynaptumLearn.Application.sourcelink.json

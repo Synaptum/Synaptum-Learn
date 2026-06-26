@@ -9,3 +9,4 @@ C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\Sy
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\refint\SynaptumLearn.Shared.dll
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.pdb
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\ref\SynaptumLearn.Shared.dll
+C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Shared\obj\Debug\net10.0\SynaptumLearn.Shared.sourcelink.json

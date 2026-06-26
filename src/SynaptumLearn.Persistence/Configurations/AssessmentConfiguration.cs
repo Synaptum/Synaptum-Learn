@@ -19,11 +19,6 @@ public class AssessmentConfiguration : IEntityTypeConfiguration<Assessment>
         builder.Property(x => x.Instructions)
             .HasColumnType("nvarchar(max)");
 
-        builder.HasOne(x => x.Lesson)
-            .WithMany(x => x.Assessments)
-            .HasForeignKey(x => x.LessonId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.HasMany(x => x.Questions)
             .WithOne(x => x.Assessment)
             .HasForeignKey(x => x.AssessmentId)

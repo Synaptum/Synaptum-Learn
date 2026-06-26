@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SynaptumLearn.Domain.Content;
@@ -23,7 +24,7 @@ public class LessonContentConfiguration : IEntityTypeConfiguration<LessonContent
             .HasConversion<int>();
 
         builder.HasOne(x => x.Lesson)
-            .WithMany()
+            .WithMany(x => x.LessonContents)
             .HasForeignKey(x => x.LessonId)
             .OnDelete(DeleteBehavior.Cascade);
     }

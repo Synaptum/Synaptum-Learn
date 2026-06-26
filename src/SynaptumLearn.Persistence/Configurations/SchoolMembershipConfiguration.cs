@@ -16,7 +16,7 @@ public class SchoolMembershipConfiguration : IEntityTypeConfiguration<SchoolMemb
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.School)
-            .WithMany()
+            .WithMany(x => x.SchoolMemberships)
             .HasForeignKey(x => x.SchoolId)
             .OnDelete(DeleteBehavior.Restrict);
     }
