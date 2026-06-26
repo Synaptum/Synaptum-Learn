@@ -32,5 +32,20 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
 
         builder.HasIndex(x => x.Slug)
             .IsUnique();
+
+        builder.HasMany(x => x.SchoolMemberships)
+            .WithOne(x => x.School)
+            .HasForeignKey(x => x.SchoolId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.TeacherProfiles)
+            .WithOne(x => x.School)
+            .HasForeignKey(x => x.SchoolId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.LearnerProfiles)
+            .WithOne(x => x.School)
+            .HasForeignKey(x => x.SchoolId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

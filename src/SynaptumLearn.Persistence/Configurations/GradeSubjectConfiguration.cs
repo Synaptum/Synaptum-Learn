@@ -13,14 +13,9 @@ public class GradeSubjectConfiguration : IEntityTypeConfiguration<GradeSubject>
 
         builder.HasKey(x => x.Id);
 
-        builder.HasOne(x => x.Grade)
-            .WithMany()
-            .HasForeignKey(x => x.GradeId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(x => x.Subject)
-            .WithMany()
-            .HasForeignKey(x => x.SubjectId)
+        builder.HasMany(x => x.Topics)
+            .WithOne(x => x.GradeSubject)
+            .HasForeignKey(x => x.GradeSubjectId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(x => new { x.GradeId, x.SubjectId })

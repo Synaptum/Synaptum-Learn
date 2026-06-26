@@ -14,9 +14,9 @@ public class TeacherProfileConfiguration : IEntityTypeConfiguration<TeacherProfi
         builder.Property(x => x.EmployeeNumber)
             .HasMaxLength(50);
 
-        builder.HasOne(x => x.User)
-            .WithMany(x => x.TeacherProfiles)
-            .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(x => x.TeacherSubjects)
+    .WithOne(x => x.TeacherProfile)
+    .HasForeignKey(x => x.TeacherProfileId)
+    .OnDelete(DeleteBehavior.Restrict);
     }
 }

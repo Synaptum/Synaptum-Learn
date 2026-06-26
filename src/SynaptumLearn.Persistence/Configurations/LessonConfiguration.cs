@@ -21,6 +21,31 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
 
         builder.Property(x => x.Status)
             .HasConversion<int>();
+        
+        builder.HasOne(x => x.Topic)
+            .WithMany(x => x.Lessons)
+            .HasForeignKey(x => x.TopicId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.LessonContents)
+            .WithOne(x => x.Lesson)
+            .HasForeignKey(x => x.LessonId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.LessonApprovals)
+            .WithOne(x => x.Lesson)
+            .HasForeignKey(x => x.LessonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.Assessments)
+            .WithOne(x => x.Lesson)
+            .HasForeignKey(x => x.LessonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.LessonProgresses)
+            .WithOne(x => x.Lesson)
+            .HasForeignKey(x => x.LessonId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(x => x.TopicId);
     }

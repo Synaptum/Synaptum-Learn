@@ -19,6 +19,16 @@ public class TopicConfiguration : IEntityTypeConfiguration<Topic>
         builder.Property(x => x.Description)
             .HasMaxLength(2000);
 
+        builder.HasOne(x => x.GradeSubject)
+            .WithMany(x => x.Topics)
+            .HasForeignKey(x => x.GradeSubjectId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasMany(x => x.Lessons)
+            .WithOne(x => x.Topic)
+            .HasForeignKey(x => x.TopicId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasIndex(x => x.GradeSubjectId);
     }
 }

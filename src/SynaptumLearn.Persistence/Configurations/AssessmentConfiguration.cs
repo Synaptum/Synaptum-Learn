@@ -20,8 +20,18 @@ public class AssessmentConfiguration : IEntityTypeConfiguration<Assessment>
             .HasColumnType("nvarchar(max)");
 
         builder.HasOne(x => x.Lesson)
-            .WithMany()
+            .WithMany(x => x.Assessments)
             .HasForeignKey(x => x.LessonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.Questions)
+            .WithOne(x => x.Assessment)
+            .HasForeignKey(x => x.AssessmentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.Attempts)
+            .WithOne(x => x.Assessment)
+            .HasForeignKey(x => x.AssessmentId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

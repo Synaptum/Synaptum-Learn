@@ -15,9 +15,9 @@ public class QuestionConfiguration : IEntityTypeConfiguration<Question>
         builder.Property(x => x.Text)
             .HasColumnType("nvarchar(max)");
 
-        builder.HasOne(x => x.Assessment)
-            .WithMany()
-            .HasForeignKey(x => x.AssessmentId)
+        builder.HasMany(x => x.AnswerOptions)
+            .WithOne(x => x.Question)
+            .HasForeignKey(x => x.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

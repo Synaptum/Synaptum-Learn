@@ -18,5 +18,15 @@ public class LearnerProfileConfiguration : IEntityTypeConfiguration<LearnerProfi
             .WithMany(x => x.LearnerProfiles)
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasMany(x => x.LessonProgresses)
+    .WithOne(x => x.LearnerProfile)
+    .HasForeignKey(x => x.LearnerProfileId)
+    .OnDelete(DeleteBehavior.Restrict);
+
+builder.HasMany(x => x.AssessmentAttempts)
+    .WithOne(x => x.LearnerProfile)
+    .HasForeignKey(x => x.LearnerProfileId)
+    .OnDelete(DeleteBehavior.Restrict);
     }
 }
