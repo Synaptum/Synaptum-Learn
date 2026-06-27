@@ -1,0 +1,180 @@
+@using SynaptumLearn.Domain.Enums; 
+
+@model SynaptumLearn.Web.ViewModels.Schools.CreateSchoolViewModel
+
+@{
+    ViewData["Title"] = "Register School";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-house"></i>
+                    Home
+                </a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a asp-controller="Schools" asp-action="Index">
+                    Schools
+                </a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                Register School
+            </li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="fa-solid fa-school text-primary"></i>
+                Register School
+            </h2>
+
+            <p class="text-muted mb-0">
+                Register a new school to the Synaptum Learn platform.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+                School Information
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger">
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Name"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <input asp-for="Name"
+                               class="form-control" />
+
+                        <span asp-validation-for="Name"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="EMISNumber"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <input asp-for="EMISNumber"
+                               class="form-control" />
+
+                        <span asp-validation-for="EMISNumber"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Phone"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <input asp-for="Phone"
+                               class="form-control" />
+
+                        <span asp-validation-for="Phone"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+
+                        <label asp-for="Province"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <select asp-for="Province"
+                                asp-items="Html.GetEnumSelectList<Province>()"
+                                class="form-select">
+                            <option value="">Select Province</option>
+                        </select>
+
+                        <span asp-validation-for="Province"
+                              class="text-danger"></span>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back
+
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Register School
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+} 

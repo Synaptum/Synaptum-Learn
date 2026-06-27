@@ -7,33 +7,39 @@ using SynaptumLearn.Domain.Assessments;
 using SynaptumLearn.Domain.Content;
 using SynaptumLearn.Domain.Analytics;
 using SynaptumLearn.Domain.Curriculum;
+using SynaptumLearn.Application.Common.Interfaces;
 
 namespace SynaptumLearn.Persistence.Contexts;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-    public DbSet<Assessment> Assessments { get; set; }
-    public DbSet<Question> Questions { get; set; }
-    public DbSet<AnswerOption> AnswerOptions { get; set; }
-    public DbSet<AssessmentAttempt> AssessmentAttempts { get; set; }
-    public DbSet<LessonApproval> LessonApprovals { get ; set; }
-    public DbSet<TeacherSubject> TeacherSubjects { get; set; }
-    public DbSet<LessonProgress> LessonProgresses { get; set; }
-    public DbSet<Grade> Grades { get; set; }
-    public DbSet<Subject> Subjects { get; set; }
-    public DbSet<GradeSubject> GradeSubjects { get; set; }
-    public DbSet<Topic> Topics { get; set; }
-    public DbSet<Lesson> Lessons { get; set; }
-    public DbSet<LessonContent> LessonContents { get; set; }
-    public DbSet<User> BusinessUsers { get; set; }
-    public DbSet<School> Schools { get; set; }
-    public DbSet<SchoolMembership> SchoolMemberships {get;set;}
-    public DbSet<TeacherProfile> TeacherProfiles { get; set; }
-    public DbSet<LearnerProfile> LearnerProfiles { get; set; }
+    public DbSet<Assessment> Assessments => Set<Assessment>();
+    public DbSet<Question> Questions => Set<Question>();
+    public DbSet<AnswerOption> AnswerOptions => Set<AnswerOption>();
+    public DbSet<AssessmentAttempt> AssessmentAttempts => Set<AssessmentAttempt>();
+    public DbSet<LessonApproval> LessonApprovals => Set<LessonApproval>();
+    public DbSet<TeacherSubject> TeacherSubjects => Set<TeacherSubject>();
+    public DbSet<LessonProgress> LessonProgresses => Set<LessonProgress>();
+    public DbSet<Grade> Grades => Set<Grade>();
+    public DbSet<Subject> Subjects => Set<Subject>();
+    public DbSet<GradeSubject> GradeSubjects => Set<GradeSubject>();
+    public DbSet<Topic> Topics => Set<Topic>();
+    public DbSet<Lesson> Lessons => Set<Lesson>();
+    public DbSet<LessonContent> LessonContents => Set<LessonContent>();
+    public DbSet<User> BusinessUsers => Set<User>();
+    public DbSet<School> Schools => Set<School>();
+    public DbSet<SchoolMembership> SchoolMemberships => Set<SchoolMembership>();
+    public DbSet<TeacherProfile> TeacherProfiles => Set<TeacherProfile>();
+    public DbSet<LearnerProfile> LearnerProfiles => Set<LearnerProfile>();
 
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+       
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

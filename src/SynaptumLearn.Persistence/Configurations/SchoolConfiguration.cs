@@ -23,7 +23,11 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
             .HasMaxLength(30);
         
         builder.Property(x => x.Province)
-            .HasMaxLength(100);
+            .HasConversion<int>();
+
+        builder.Property(x => x.Status)
+            .HasConversion<int>();
+
 
         builder.Property(x => x.Email)
             .HasMaxLength(150);
@@ -32,6 +36,13 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
             .HasMaxLength(100);
 
         builder.HasIndex(x => x.Slug)
+            .IsUnique();
+
+        builder.Property(x => x.Code)
+            .HasMaxLength(20)
+            .IsRequired();
+
+        builder.HasIndex(x => x.Code)
             .IsUnique();
 
         builder.HasMany(x => x.SchoolMemberships)

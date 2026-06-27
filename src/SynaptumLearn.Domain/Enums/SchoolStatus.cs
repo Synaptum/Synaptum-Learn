@@ -1,9 +1,10 @@
 
 namespace SynaptumLearn.Domain.Enums;
+
 public enum SchoolStatus
 {
-    Pending,
-    Active,
-    Suspended,
-    Cancelled
+    Pending = 1,
+    Active = 2,
+    Suspended = 3,
+    Archived = 4
 }

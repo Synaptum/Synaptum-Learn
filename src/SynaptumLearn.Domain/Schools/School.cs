@@ -9,8 +9,9 @@ public class School : BaseEntity
     public string EMISNumber { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Phone { get; set; } = null!;
-    public string Province { get; set; } = null!;
+    public Province Province { get; set; }
     public string Slug { get; set; } = null!;
+    public string Code { get; set; } = null!;
     public SchoolStatus Status {get; set;}
     public ICollection<SchoolMembership> SchoolMemberships { get; set; } = new List<SchoolMembership>();
     public ICollection<TeacherProfile> TeacherProfiles { get; set; } = new List<TeacherProfile>();
