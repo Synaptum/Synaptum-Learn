@@ -2,5 +2,5 @@ namespace SynaptumLearn.Application.Common.Interfaces;
 
 public interface ISlugGenerator
 {
-    Task<string> GenerateSchoolSlugAsync(string schoolName);
+    Task<string> GenerateSchoolSlugAsync(string schoolName, CancellationToken cancellationToken);
 }

@@ -2,6 +2,7 @@ using MediatR;
 using SynaptumLearn.Application.Common.Interfaces;
 using SynaptumLearn.Domain.Enums;
 using SynaptumLearn.Domain.Schools;
+using SynaptumLearn.Domain.Sequences;
 
 namespace SynaptumLearn.Application.Schools.CreateSchool;
 
@@ -9,13 +10,13 @@ public sealed class CreateSchoolCommandHandler : IRequestHandler<CreateSchoolCom
 {
     private readonly IApplicationDbContext _context;
     private readonly ISlugGenerator _slugGenerator;
-    private readonly ISchoolCodeGenerator _schoolCodeGenerator;
+    private readonly ISequenceGenerator _sequenceGenerator;
 
-    public CreateSchoolCommandHandler(IApplicationDbContext context, ISlugGenerator slugGenerator, ISchoolCodeGenerator schoolCodeGenerator)
+    public CreateSchoolCommandHandler(IApplicationDbContext context, ISlugGenerator slugGenerator, ISequenceGenerator sequenceGenerator)
     {
         _context = context;
         _slugGenerator = slugGenerator;
-        _schoolCodeGenerator = schoolCodeGenerator;
+        _sequenceGenerator = sequenceGenerator;
     }
 
     public async Task<Guid> Handle(CreateSchoolCommand request,CancellationToken cancellationToken)
@@ -26,10 +27,10 @@ public sealed class CreateSchoolCommandHandler : IRequestHandler<CreateSchoolCom
             EMISNumber = request.EMISNumber.Trim(),
             Email = request.Email.Trim(),
             Phone = request.Phone.Trim(),
-            //Province = request.Province.Trim(),
+            Province = request.Province,
 
-            Slug = await _slugGenerator.GenerateSchoolSlugAsync(request.Name),
-            Code = await _schoolCodeGenerator.GenerateAsync(),
+            Slug = await _slugGenerator.GenerateSchoolSlugAsync(request.Name, cancellationToken),
+            Code = await _sequenceGenerator.GenerateAsync(SequenceNames.School, SequencePrefixes.School, cancellationToken),
             Status = SchoolStatus.Pending
         };
 

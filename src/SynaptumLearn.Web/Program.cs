@@ -4,6 +4,8 @@ using SynaptumLearn.Persistence.Identity;
 using SynaptumLearn.Persistence.Contexts;
 using SynaptumLearn.Application;
 using SynaptumLearn.Persistence;
+using SynaptumLearn.Web.Services;
+using SynaptumLearn.Application.Common.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.Password.RequireDigit = true;

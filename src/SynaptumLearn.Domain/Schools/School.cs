@@ -3,7 +3,7 @@ using SynaptumLearn.Domain.Enums;
 
 namespace SynaptumLearn.Domain.Schools;
 
-public class School : BaseEntity
+public class School : BaseAuditableEntity
 {
     public string Name { get; set; } = null!;
     public string EMISNumber { get; set; } = null!;

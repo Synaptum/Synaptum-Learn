@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SynaptumLearn.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c6d055ac75701d4b683685169282e4e08b23dfa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a9e78041ccc6e8e283d00d4547c0c945a4f6126")]
 [assembly: System.Reflection.AssemblyProductAttribute("SynaptumLearn.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SynaptumLearn.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

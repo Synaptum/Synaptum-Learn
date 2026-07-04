@@ -3,7 +3,7 @@ using SynaptumLearn.Domain.Schools;
 
 namespace SynaptumLearn.Domain.Users;
 
-public class User : BaseEntity
+public class User : BaseAuditableEntity
 {
     public string IdentityUserId { get; set; } = null!;
     public string FirstName { get; set; } = null!;

@@ -5,6 +5,7 @@ using SynaptumLearn.Domain.Content;
 using SynaptumLearn.Domain.Curriculum;
 using SynaptumLearn.Domain.Schools;
 using SynaptumLearn.Domain.Users;
+using SynaptumLearn.Domain.Sequences;
 
 namespace SynaptumLearn.Application.Common.Interfaces;
 
@@ -33,6 +34,7 @@ public interface IApplicationDbContext
     DbSet<AssessmentAttempt> AssessmentAttempts { get; }
 
     DbSet<LessonProgress> LessonProgresses { get; }
+    DbSet<EntitySequence> EntitySequences { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

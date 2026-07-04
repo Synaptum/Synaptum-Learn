@@ -3,7 +3,7 @@ using SynaptumLearn.Domain.Common;
 
 namespace SynaptumLearn.Domain.Assessments;
 
-public class AnswerOption : BaseEntity
+public class AnswerOption : BaseAuditableEntity
 {
     public Guid QuestionId { get; set; }
     public Question Question { get; set; } = null!;

@@ -24,7 +24,6 @@ public sealed class CreateSchoolValidator : AbstractValidator<CreateSchoolComman
             .MaximumLength(30);
 
         RuleFor(x => x.Province)
-            .NotEmpty()
-            .MaximumLength(100);
+            .IsInEnum();
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SynaptumLearn.Application.Common.Interfaces;
 using SynaptumLearn.Persistence.Contexts;
-using SynaptumLearn.Persistence.Services;
+using SynaptumLearn.Persistence.Common;
 
 namespace SynaptumLearn.Persistence;
 
@@ -19,7 +19,7 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ISlugGenerator, SlugGenerator>();
-
+        services.AddScoped<ISequenceGenerator, SequenceGenerator>();
         return services;
     }
 }

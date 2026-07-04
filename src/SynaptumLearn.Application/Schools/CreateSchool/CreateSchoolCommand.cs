@@ -1,4 +1,5 @@
 using MediatR;
+using SynaptumLearn.Domain.Enums;
 
 namespace SynaptumLearn.Application.Schools.CreateSchool;
 
@@ -12,5 +13,5 @@ public sealed class CreateSchoolCommand : IRequest<Guid>
 
     public string Phone { get; set; } = string.Empty;
 
-    public string Province { get; set; } = string.Empty;
+    public Province Province { get; set; }
 }

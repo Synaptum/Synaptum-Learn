@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SynaptumLearn.Application.Common.Interfaces;
 using SynaptumLearn.Persistence.Contexts;
 
-namespace SynaptumLearn.Persistence.Services;
+namespace SynaptumLearn.Persistence.Common;
  
 public class SlugGenerator : ISlugGenerator
 {
@@ -14,7 +14,7 @@ public class SlugGenerator : ISlugGenerator
         _context = context;
     }
 
-    public async Task<string> GenerateSchoolSlugAsync(string schoolName)
+    public async Task<string> GenerateSchoolSlugAsync(string schoolName, CancellationToken cancellationToken)
     {
         var slug = schoolName
             .Trim()
@@ -27,7 +27,7 @@ public class SlugGenerator : ISlugGenerator
         var originalSlug = slug;
         var counter = 2;
 
-        while (await _context.Schools.AnyAsync(s => s.Slug == slug))
+        while (await _context.Schools.AnyAsync(s => s.Slug == slug, cancellationToken))
         {
             slug = $"{originalSlug}-{counter}";
             counter++;

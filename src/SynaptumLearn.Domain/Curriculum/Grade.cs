@@ -2,7 +2,7 @@ using SynaptumLearn.Domain.Common;
 
 namespace SynaptumLearn.Domain.Curriculum;
 
-public class Grade : BaseEntity
+public class Grade : BaseAuditableEntity
 {
     public string Name { get; set; } = null!;
     public int Order { get; set; }

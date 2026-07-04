@@ -3,7 +3,7 @@ using SynaptumLearn.Domain.Common;
 
 namespace SynaptumLearn.Domain.Content;
 
-public class LessonContent : BaseEntity
+public class LessonContent : BaseAuditableEntity
 {
     public Guid LessonId { get; set; }
     public Lesson Lesson { get; set; } = null!;

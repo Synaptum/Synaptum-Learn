@@ -4,7 +4,7 @@ using SynaptumLearn.Domain.Content;
 
 namespace SynaptumLearn.Domain.Curriculum;
 
-public class GradeSubject : BaseEntity
+public class GradeSubject : BaseAuditableEntity
 {
     public Guid GradeId { get; set; }
     public Grade Grade { get; set; } = null!;
