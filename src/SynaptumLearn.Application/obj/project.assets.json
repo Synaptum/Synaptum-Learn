@@ -320,6 +320,9 @@
       "SynaptumLearn.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "MediatR.Contracts": "2.0.1"
+        },
         "compile": {
           "bin/placeholder/SynaptumLearn.Domain.dll": {}
         },
@@ -863,7 +866,7 @@
       "FluentValidation >= 12.1.1",
       "FluentValidation.DependencyInjectionExtensions >= 12.1.1",
       "MediatR >= 14.1.0",
-      "Microsoft.EntityFrameWorkCore >= 10.0.9",
+      "Microsoft.EntityFrameworkCore >= 10.0.9",
       "SynaptumLearn.Domain >= 1.0.0",
       "SynaptumLearn.Shared >= 1.0.0"
     ]
@@ -932,7 +935,7 @@
             "target": "Package",
             "version": "[14.1.0, )"
           },
-          "Microsoft.EntityFrameWorkCore": {
+          "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[10.0.9, )"
           }
