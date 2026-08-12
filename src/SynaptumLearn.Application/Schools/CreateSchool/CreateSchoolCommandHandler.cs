@@ -20,18 +20,26 @@ public sealed class CreateSchoolCommandHandler : IRequestHandler<CreateSchoolCom
         _sequenceGenerator = sequenceGenerator;
     }
 
-    public async Task<Guid> Handle(CreateSchoolCommand request,CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateSchoolCommand request, CancellationToken cancellationToken)
     {
         var school = new School
         {
-            Name = request.Name,
-            EMISNumber = request.EMISNumber,
-            Email = request.Email,
-            Phone = request.Phone,
+            Name = request.Name.Trim(),
+            EMISNumber = request.EMISNumber.Trim(),
+            Email = request.Email.Trim(),
+            Phone = request.Phone.Trim(),
             Province = request.Province,
 
-            Slug = await _slugGenerator.GenerateSchoolSlugAsync(request.Name, cancellationToken),
-            Code = await _sequenceGenerator.GenerateAsync(SequenceNames.School, SequencePrefixes.School, cancellationToken),
+            Slug = await _slugGenerator
+                .GenerateSchoolSlugAsync(
+                    request.Name,
+                    cancellationToken),
+
+            Code = await _sequenceGenerator.GenerateAsync(
+                SequenceNames.School,
+                SequencePrefixes.School,
+                cancellationToken),
+
             Status = SchoolStatus.Pending
         };
 
@@ -39,7 +47,8 @@ public sealed class CreateSchoolCommandHandler : IRequestHandler<CreateSchoolCom
 
         _context.Schools.Add(school);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(
+            cancellationToken);
 
         return school.Id;
     }

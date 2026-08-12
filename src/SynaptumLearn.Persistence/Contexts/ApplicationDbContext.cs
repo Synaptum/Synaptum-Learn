@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 using SynaptumLearn.Persistence.Identity;
 using SynaptumLearn.Domain.Schools;
 using SynaptumLearn.Domain.Users;
@@ -17,11 +18,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 {
     private readonly TimeProvider _timeProvider;
     private readonly ICurrentUserService _currentUserService;
+    private readonly IDomainEventDispatcher _domainEventDispatcher;
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, TimeProvider timeProvider, ICurrentUserService currentUserService) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, TimeProvider timeProvider, ICurrentUserService currentUserService, IDomainEventDispatcher domainEventDispatcher) : base(options)
     {
         _timeProvider = timeProvider;
         _currentUserService = currentUserService;
+        _domainEventDispatcher = domainEventDispatcher;
     }
     public DbSet<Assessment> Assessments => Set<Assessment>();
     public DbSet<Question> Questions => Set<Question>();
@@ -46,23 +49,53 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var utcNow = _timeProvider.GetUtcNow().UtcDateTime;
+
+        //Auditing
         foreach (var entry in ChangeTracker.Entries<BaseAuditableEntity>())
         {
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedAt = utcNow;
                 entry.Entity.LastModifiedAt = utcNow;
+
                 entry.Entity.CreatedByUserId = _currentUserService.UserId;
+                entry.Entity.LastModifiedByUserId = _currentUserService.UserId;
             }
             else if (entry.State == EntityState.Modified)
             {
                 entry.Entity.LastModifiedAt = utcNow;
-                entry.Entity.CreatedByUserId = _currentUserService.UserId;
+
+                entry.Entity.LastModifiedByUserId = _currentUserService.UserId;
             }
         }
-        return await base.SaveChangesAsync(cancellationToken);
+
+        //Capture domain events before saving
+        var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
+            .Where(entry => entry.Entity.DomainEvents.Any())
+            .Select(entry => entry.Entity)
+            .ToList();
+
+        var domainEvents = entitiesWithEvents
+            .SelectMany(entity => entity.DomainEvents)
+            .ToList();
+
+        //Save database changes first
+        var result = await base.SaveChangesAsync(cancellationToken);
+
+        //Clear before dispatching
+        foreach (var entity in entitiesWithEvents)
+        {
+            entity.ClearDomainEvents();
+        }
+
+        //Publish after successful database save
+        await _domainEventDispatcher.DispatchAsync(
+            domainEvents,
+            cancellationToken);
+
+        return result;
     }
-       
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

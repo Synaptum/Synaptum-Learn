@@ -21,7 +21,7 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
 
         builder.Property(x => x.Phone)
             .HasMaxLength(30);
-        
+
         builder.Property(x => x.Province)
             .HasConversion<int>();
 
@@ -43,6 +43,9 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
             .IsRequired();
 
         builder.HasIndex(x => x.Code)
+            .IsUnique();
+
+        builder.HasIndex(x => x.EMISNumber)
             .IsUnique();
 
         builder.HasMany(x => x.SchoolMemberships)

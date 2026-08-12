@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj": {}
+    "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj": {
+    "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj",
+        "projectUniqueName": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj",
         "projectName": "SynaptumLearn.Application",
-        "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj",
-        "packagesPath": "C:\\Users\\Tsebang Maduna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\obj\\",
+        "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj",
+        "packagesPath": "C:\\Users\\azams\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Tsebang Maduna\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\azams\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -27,11 +33,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj": {
-                "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj"
+              "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj": {
+                "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj"
               },
-              "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj": {
-                "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj"
+              "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj": {
+                "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj"
               }
             }
           }
@@ -86,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -364,22 +370,28 @@
         }
       }
     },
-    "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj": {
+    "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj",
         "projectName": "SynaptumLearn.Domain",
-        "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj",
-        "packagesPath": "C:\\Users\\Tsebang Maduna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\obj\\",
+        "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj",
+        "packagesPath": "C:\\Users\\azams\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Tsebang Maduna\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\azams\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -421,7 +433,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -699,22 +711,28 @@
         }
       }
     },
-    "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj": {
+    "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj",
         "projectName": "SynaptumLearn.Persistence",
-        "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj",
-        "packagesPath": "C:\\Users\\Tsebang Maduna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Persistence\\obj\\",
+        "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Persistence\\SynaptumLearn.Persistence.csproj",
+        "packagesPath": "C:\\Users\\azams\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Persistence\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Tsebang Maduna\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\azams\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -722,14 +740,14 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj": {
-                "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj"
+              "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj": {
+                "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Application\\SynaptumLearn.Application.csproj"
               },
-              "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj": {
-                "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj"
+              "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj": {
+                "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Domain\\SynaptumLearn.Domain.csproj"
               },
-              "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj": {
-                "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj"
+              "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj": {
+                "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj"
               }
             }
           }
@@ -792,7 +810,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1070,22 +1088,28 @@
         }
       }
     },
-    "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj": {
+    "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj",
         "projectName": "SynaptumLearn.Shared",
-        "projectPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj",
-        "packagesPath": "C:\\Users\\Tsebang Maduna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tsebang Maduna\\Documents\\Tsebang\\Synaptum-Projects\\SynaptumLearn\\src\\SynaptumLearn.Shared\\obj\\",
+        "projectPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\SynaptumLearn.Shared.csproj",
+        "packagesPath": "C:\\Users\\azams\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\azams\\Documents\\Tsebang\\Synaptum-Projects\\Synaptum-Learn\\src\\SynaptumLearn.Shared\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Tsebang Maduna\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\azams\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -1127,7 +1151,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

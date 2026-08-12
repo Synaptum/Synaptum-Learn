@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SynaptumLearn.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a9e78041ccc6e8e283d00d4547c0c945a4f6126")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e90a9f849143afe627a0da602755a5829c04fb8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("SynaptumLearn.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SynaptumLearn.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

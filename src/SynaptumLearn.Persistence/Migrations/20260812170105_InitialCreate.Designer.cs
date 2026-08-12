@@ -12,8 +12,8 @@ using SynaptumLearn.Persistence.Contexts;
 namespace SynaptumLearn.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260704203605_AddEntitySequences")]
-    partial class AddEntitySequences
+    [Migration("20260812170105_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -912,6 +912,56 @@ namespace SynaptumLearn.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("EntitySequences", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityName = "School",
+                            NextValue = 1L,
+                            Prefix = "SCH"
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityName = "Teacher",
+                            NextValue = 1L,
+                            Prefix = "TCH"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityName = "Learner",
+                            NextValue = 1L,
+                            Prefix = "LRN"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityName = "Lesson",
+                            NextValue = 1L,
+                            Prefix = "LES"
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555555"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityName = "Assessment",
+                            NextValue = 1L,
+                            Prefix = "ASM"
+                        },
+                        new
+                        {
+                            Id = new Guid("66666666-6666-6666-6666-666666666666"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntityName = "Topic",
+                            NextValue = 1L,
+                            Prefix = "TOP"
+                        });
                 });
 
             modelBuilder.Entity("SynaptumLearn.Domain.Users.User", b =>

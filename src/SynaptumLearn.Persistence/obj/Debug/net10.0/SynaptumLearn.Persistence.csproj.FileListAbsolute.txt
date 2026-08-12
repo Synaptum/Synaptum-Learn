@@ -20,3 +20,25 @@ C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\Sy
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.genruntimeconfig.cache
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\ref\SynaptumLearn.Persistence.dll
 C:\Users\Tsebang Maduna\Documents\Tsebang\Synaptum-Projects\SynaptumLearn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.sourcelink.json
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Persistence.deps.json
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Persistence.runtimeconfig.json
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Persistence.dll
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Persistence.pdb
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Application.dll
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Domain.dll
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Shared.dll
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Application.pdb
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Domain.pdb
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\bin\Debug\net10.0\SynaptumLearn.Shared.pdb
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.csproj.AssemblyReference.cache
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.AssemblyInfoInputs.cache
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.AssemblyInfo.cs
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.sourcelink.json
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\Synaptum.9236B8A0.Up2Date
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.dll
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\refint\SynaptumLearn.Persistence.dll
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.pdb
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\SynaptumLearn.Persistence.genruntimeconfig.cache
+C:\Users\azams\Documents\Tsebang\Synaptum-Projects\Synaptum-Learn\src\SynaptumLearn.Persistence\obj\Debug\net10.0\ref\SynaptumLearn.Persistence.dll
