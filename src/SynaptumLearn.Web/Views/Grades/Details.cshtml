@@ -1,0 +1,56 @@
+@model SynaptumLearn.Application.Curriculum.Grades.GetGradeDetails.GradeDetailsDto
+
+@{
+    ViewData["Title"] = "Grade Details";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">@Model.Name</h2>
+
+            <p class="text-muted mb-0">
+                Curriculum grade details
+            </p>
+        </div>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            Back to Grades
+        </a>
+        <a asp-action="Edit"  asp-route-id="@Model.Id"  class="btn btn-primary">
+            Edit Grade
+        </a>
+
+    </div>
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body">
+
+            <dl class="row mb-0">
+
+                <dt class="col-sm-3">Grade</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Order</dt>
+                <dd class="col-sm-9">@Model.Order</dd>
+
+                <dt class="col-sm-3">Created</dt>
+                <dd class="col-sm-9">
+                    @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                </dd>
+
+                <dt class="col-sm-3">Last Modified</dt>
+                <dd class="col-sm-9">
+                    @(Model.LastModifiedAt?.ToString("yyyy-MM-dd HH:mm") ?? "Never")
+                </dd>
+
+            </dl>
+
+        </div>
+
+    </div>
+
+</div>

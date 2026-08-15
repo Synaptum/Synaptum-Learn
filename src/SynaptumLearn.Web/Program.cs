@@ -7,7 +7,7 @@ using SynaptumLearn.Persistence;
 using SynaptumLearn.Web.Services;
 using SynaptumLearn.Application.Common.Interfaces;
 using SynaptumLearn.Web.ExceptionHandling;
-
+//
 
 var builder = WebApplication.CreateBuilder(args);
 
