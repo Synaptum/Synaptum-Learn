@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SynaptumLearn.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e90a9f849143afe627a0da602755a5829c04fb8c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a9402c45ef6a156cdb8b9cdf42049dcb204be4e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SynaptumLearn.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SynaptumLearn.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

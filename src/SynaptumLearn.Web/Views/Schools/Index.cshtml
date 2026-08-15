@@ -1,7 +1,105 @@
+@model IReadOnlyList<SynaptumLearn.Application.Schools.ListSchools.SchoolListItemDto>
+
 @{
     ViewData["Title"] = "Schools";
 }
 
-<h2>Schools</h2>
+<div class="container-fluid py-4">
 
-<p>School created successfully.</p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="fa-solid fa-school me-2"></i>
+                Schools
+            </h2>
+
+            <p class="text-muted mb-0">
+                Schools registered on Synaptum Learn.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fa-solid fa-plus me-1"></i>
+            Register School
+        </a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+
+                <h5>No schools registered</h5>
+
+                <p class="text-muted mb-3">
+                    Register your first school to get started.
+                </p>
+
+                <a asp-action="Create" class="btn btn-primary">
+                    Register School
+                </a>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card border-0 shadow-sm">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Code</th>
+                            <th>School</th>
+                            <th>EMIS Number</th>
+                            <th>Province</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var school in Model)
+                        {
+                            <tr>
+                                <td class="fw-semibold">
+                                    @school.Code
+                                </td>
+
+                                <td>
+                                    @school.Name
+                                </td>
+
+                                <td>
+                                    @school.EMISNumber
+                                </td>
+
+                                <td>
+                                    @school.Province
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @school.Status
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <a asp-action="Details"                 asp-route-id="@school.Id"   class="btn btn-sm btn-outline-primary">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+
+</div>

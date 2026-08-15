@@ -12,8 +12,38 @@ public class School : BaseAuditableEntity
     public Province Province { get; set; }
     public string Slug { get; set; } = null!;
     public string Code { get; set; } = null!;
-    public SchoolStatus Status {get; set;}
+    public SchoolStatus Status { get; set; }
     public ICollection<SchoolMembership> SchoolMemberships { get; set; } = new List<SchoolMembership>();
     public ICollection<TeacherProfile> TeacherProfiles { get; set; } = new List<TeacherProfile>();
     public ICollection<LearnerProfile> LearnerProfiles { get; set; } = new List<LearnerProfile>();
+
+    public bool CanTransitionTo(SchoolStatus newStatus)
+    {
+        return Status switch
+        {
+            SchoolStatus.Pending =>
+                newStatus is SchoolStatus.Active or SchoolStatus.Archived,
+
+            SchoolStatus.Active =>
+                newStatus is SchoolStatus.Suspended or SchoolStatus.Archived,
+
+            SchoolStatus.Suspended =>
+                newStatus is SchoolStatus.Active or SchoolStatus.Archived,
+
+            SchoolStatus.Archived => false,
+
+            _ => false
+        };
+    }
+
+    public bool ChangeStatus(SchoolStatus newStatus)
+    {
+        if (!CanTransitionTo(newStatus))
+        {
+            return false;
+        }
+
+        Status = newStatus;
+        return true;
+    }
 }
