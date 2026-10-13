@@ -1,0 +1,33 @@
+
+# .NET build outputs
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.rsuser
+
+# VS Code local settings
+.vscode/
+
+# Test results
+TestResults/
+*.trx
+coverage/
+
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+**/appsettings.Development.json
+**/appsettings.Local.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
