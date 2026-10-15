@@ -1,0 +1,85 @@
+@model IReadOnlyList<SynaptumLearn.Application.Curriculum.GradeSubjects.ListGradeSubjects.GradeSubjectListItemDto>
+
+@{
+    ViewData["Title"] = "Grade Subjects";
+}
+
+<div class="container py-4">
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success" role="alert">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold">Grade Subjects</h2>
+
+            <p class="text-muted mb-0">
+                View subjects assigned to grades in the global curriculum.
+            </p>
+        </div>
+
+        <a asp-controller="GradeSubjects" asp-action="Create" class="btn btn-primary">
+            Assign Subject
+        </a>
+
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Grade</th>
+                            <th>Subject</th>
+                            <th>Code</th>
+                            <th>Assigned On</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">
+                                    No grade-subject assignments found.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var assignment in Model)
+                            {
+                                <tr>
+                                    <td>@assignment.GradeName</td>
+
+                                    <td>@assignment.SubjectName</td>
+
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            @assignment.SubjectCode
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @assignment.CreatedAt.ToString("dd MMM yyyy")
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

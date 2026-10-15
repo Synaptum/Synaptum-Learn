@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <ProjectReference Include="..\SynaptumLearn.Application\SynaptumLearn.Application.csproj" />
@@ -24,6 +24,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f8cc4405-e313-46de-b9c3-e73b13384e9b</UserSecretsId>
   </PropertyGroup>
 
 </Project>

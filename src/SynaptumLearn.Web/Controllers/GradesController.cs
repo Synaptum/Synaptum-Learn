@@ -5,9 +5,12 @@ using SynaptumLearn.Application.Curriculum.Grades.GetGradeDetails;
 using SynaptumLearn.Application.Curriculum.Grades.UpdateGrade;
 using SynaptumLearn.Application.Curriculum.Grades.CreateGrade;
 using SynaptumLearn.Web.Models.Grades;
+using Microsoft.AspNetCore.Authorization;
+using SynaptumLearn.Application.Common.Security;
 
 namespace SynaptumLearn.Web.Controllers;
 
+[Authorize(Roles = PlatformRoles.PlatformAdmin)]
 public sealed class GradesController : Controller
 {
     private readonly ISender _sender;

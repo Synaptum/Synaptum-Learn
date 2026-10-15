@@ -7,6 +7,7 @@ using SynaptumLearn.Persistence;
 using SynaptumLearn.Web.Services;
 using SynaptumLearn.Application.Common.Interfaces;
 using SynaptumLearn.Web.ExceptionHandling;
+using SynaptumLearn.Web.Identity;
 //
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,9 +27,14 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = false;
-}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
 
 var app = builder.Build();
+
+// Ensure required platform roles exist.
+await PlatformRoleInitializer.InitializeAsync(app.Services);
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();

@@ -14,7 +14,7 @@ using SynaptumLearn.Domain.Sequences;
 
 namespace SynaptumLearn.Persistence.Contexts;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IApplicationDbContext
 {
     private readonly TimeProvider _timeProvider;
     private readonly ICurrentUserService _currentUserService;
