@@ -7,13 +7,15 @@ using SynaptumLearn.Application.Schools.GetSchoolDetails;
 using SynaptumLearn.Application.Schools.UpdateSchool;
 using SynaptumLearn.Application.Schools.ChangeSchoolStatus;
 using SynaptumLearn.Domain.Enums;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using SynaptumLearn.Web.Models.Schools;
+using Microsoft.AspNetCore.Authorization;
+using SynaptumLearn.Application.Common.Security;
 
 
 
 namespace SynaptumLearn.Web.Controllers;
 
+[Authorize(Roles = PlatformRoles.PlatformAdmin)]
 public class SchoolsController : Controller
 {
     private readonly IMediator _mediator;
