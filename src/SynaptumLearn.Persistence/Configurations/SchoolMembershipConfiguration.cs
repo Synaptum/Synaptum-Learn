@@ -10,6 +10,9 @@ public class SchoolMembershipConfiguration : IEntityTypeConfiguration<SchoolMemb
     {
         builder.ToTable("SchoolMemberships");
 
+        builder.HasIndex(x => new { x.SchoolId, x.UserId })
+            .IsUnique();
+
         builder.HasOne(x => x.User)
             .WithMany(x => x.SchoolMemberships)
             .HasForeignKey(x => x.UserId)
