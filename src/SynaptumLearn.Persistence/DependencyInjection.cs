@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SynaptumLearn.Application.Common.Interfaces;
 using SynaptumLearn.Persistence.Contexts;
 using SynaptumLearn.Persistence.Common;
+using SynaptumLearn.Persistence.Identity;
 
 namespace SynaptumLearn.Persistence;
 
@@ -17,7 +18,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-
+        services.AddScoped<IIdentityUserProvisioningService, IdentityUserProvisioningService>();
         services.AddScoped<ISlugGenerator, SlugGenerator>();
         services.AddScoped<ISequenceGenerator, SequenceGenerator>();
         return services;

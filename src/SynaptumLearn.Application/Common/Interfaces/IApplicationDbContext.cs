@@ -37,4 +37,8 @@ public interface IApplicationDbContext
     DbSet<EntitySequence> EntitySequences { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+    Task ExecuteInTransactionAsync(
+    Func<CancellationToken, Task> operation,
+    CancellationToken cancellationToken);
 }

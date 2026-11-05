@@ -1,4 +1,3 @@
-
 using SynaptumLearn.Domain.Common;
 using SynaptumLearn.Domain.Users;
 using SynaptumLearn.Domain.Enums;
