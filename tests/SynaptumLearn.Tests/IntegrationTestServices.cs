@@ -46,6 +46,7 @@ public static class IntegrationTestServices
             options.Password.RequireLowercase = true;
             options.Password.RequireNonAlphanumeric = false;
         })
+        .AddRoles<ApplicationRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
         return services.BuildServiceProvider();

@@ -56,6 +56,37 @@ public sealed class IdentityUserProvisioningService
         return identityUser.Id;
     }
 
+    public async Task AssignRoleAsync(
+        string identityUserId,
+        string role,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var identityUser = await _userManager.FindByIdAsync(
+            identityUserId);
+
+        if (identityUser is null)
+        {
+            throw new InvalidOperationException(
+                "The Identity account could not be found.");
+        }
+
+        var result = await _userManager.AddToRoleAsync(
+            identityUser,
+            role);
+
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(
+                "; ",
+                result.Errors.Select(e => e.Description));
+
+            throw new InvalidOperationException(
+                $"Identity role assignment failed: {errors}");
+        }
+    }
+
     public async Task DeleteUserAsync(
         string identityUserId,
         CancellationToken cancellationToken)
@@ -82,4 +113,20 @@ public sealed class IdentityUserProvisioningService
                 $"Identity account deletion failed: {errors}");
         }
     }
+
+    public async Task<IReadOnlyList<string>> GetUserIdsInRoleAsync(
+        string role,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var users = await _userManager.GetUsersInRoleAsync(role);
+
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return users
+            .Select(user => user.Id)
+            .ToList();
+    }
+
 }

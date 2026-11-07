@@ -51,4 +51,10 @@ public class CurrentUserService : ICurrentUserService
                 : null;
         }
     }
+
+    public bool IsInRole(string role)
+    {
+        return _httpContextAccessor.HttpContext?
+            .User.IsInRole(role) ?? false;
+    }
 }

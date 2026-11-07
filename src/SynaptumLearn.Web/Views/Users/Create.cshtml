@@ -1,0 +1,130 @@
+@model SynaptumLearn.Application.Users.CreateUser.CreateUserCommand
+@using SynaptumLearn.Application.Users.CreateUser
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-xl-6">
+
+            <div class="mb-4">
+                <h2 class="fw-bold">Create User</h2>
+                <p class="text-muted">
+                    Create a new user account for Synaptum Learn.
+                </p>
+            </div>
+
+            @if (TempData["SuccessMessage"] is string successMessage)
+            {
+                <div class="alert alert-success" role="alert">
+                    @successMessage
+                </div>
+            }
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <form asp-controller="Users" asp-action="Create" method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FirstName" class="form-label">First Name</label>
+                                <input asp-for="FirstName" class="form-control" autocomplete="given-name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="LastName" class="form-label">Last Name</label>
+                                <input asp-for="LastName" class="form-control" autocomplete="family-name" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email Address</label>
+                            <input asp-for="Email" type="email" class="form-control" autocomplete="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label">Temporary Password</label>
+                            <input asp-for="Password" type="password" class="form-control"
+                                   autocomplete="new-password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <div class="form-text">
+                                At least 8 characters, including uppercase,
+                                lowercase and a number.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="AccountType" class="form-label">
+                                Account Type
+                            </label>
+
+                            <select asp-for="AccountType" asp-items="Html.GetEnumSelectList<UserAccountType>()"
+                                    class="form-select" id="accountType">
+                                <option value="">-- Select account type --</option>
+                            </select>
+
+                            <span asp-validation-for="AccountType" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4" id="schoolSelection" hidden>
+                            <label asp-for="SchoolId" class="form-label">
+                                School
+                            </label>
+
+                            <select asp-for="SchoolId" asp-items="ViewBag.Schools" class="form-select">
+                                <option value="">-- Select school --</option>
+                            </select>
+
+                            <span asp-validation-for="SchoolId" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn btn-primary">
+                                Create User
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const accountType = document.getElementById("accountType");
+        const schoolSelection = document.getElementById("schoolSelection");
+
+        function updateSchoolSelection() {
+            const isSchoolAdmin = accountType.value === "2";
+
+            schoolSelection.hidden = !isSchoolAdmin;
+
+            if (!isSchoolAdmin) {
+                document.getElementById("SchoolId").value = "";
+            }
+        }
+
+        accountType.addEventListener("change", updateSchoolSelection);
+        updateSchoolSelection();
+    </script>
+
+}

@@ -10,4 +10,6 @@ public interface ICurrentUserService
     string? IdentityUserId { get; }
 
     string? Email { get; }
+
+    bool IsInRole(string role);
 }
