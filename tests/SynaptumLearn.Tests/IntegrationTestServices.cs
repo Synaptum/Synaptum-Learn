@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SynaptumLearn.Application.Common.Interfaces;
+using SynaptumLearn.Application.Common.Security;
 using SynaptumLearn.Persistence.Contexts;
 using SynaptumLearn.Persistence.Identity;
 
@@ -10,7 +11,8 @@ namespace SynaptumLearn.Tests;
 
 public static class IntegrationTestServices
 {
-    public static ServiceProvider CreateServiceProvider()
+    public static ServiceProvider CreateServiceProvider(
+    TeacherProfileFailureInterceptor? failureInterceptor = null)
     {
         var connectionString =
             TestDatabaseConfiguration.ConnectionString;
@@ -23,13 +25,23 @@ public static class IntegrationTestServices
 
         services.AddSingleton(TimeProvider.System);
 
-        services.AddScoped<ICurrentUserService, TestCurrentUserService>();
+        services.AddScoped<TestCurrentUserService>();
+
+        services.AddScoped<ICurrentUserService>(provider =>
+            provider.GetRequiredService<TestCurrentUserService>());
+
+        services.AddScoped<ISchoolAdminAccessService, SchoolAdminAccessService>();
 
         services.AddScoped<IDomainEventDispatcher, TestDomainEventDispatcher>();
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseSqlServer(connectionString);
+
+            if (failureInterceptor is not null)
+            {
+                options.AddInterceptors(failureInterceptor);
+            }
         });
 
         services.AddScoped<IApplicationDbContext>(provider =>
@@ -45,6 +57,8 @@ public static class IntegrationTestServices
             options.Password.RequireUppercase = true;
             options.Password.RequireLowercase = true;
             options.Password.RequireNonAlphanumeric = false;
+
+            options.User.RequireUniqueEmail = true;
         })
         .AddRoles<ApplicationRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();

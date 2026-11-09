@@ -7,19 +7,22 @@ namespace SynaptumLearn.Tests;
 
 public sealed class TestCurrentUserService : ICurrentUserService
 {
-    public Guid? UserId => null;
+    public Guid? UserId { get; set; }
 
-    public Guid? SchoolId => null;
+    public Guid? SchoolId { get; set; }
 
-    public bool IsAuthenticated => true;
+    public bool IsAuthenticated { get; set; } = true;
 
-    public string? IdentityUserId => null;
+    public string? IdentityUserId { get; set; }
 
-    public string? Email => null;
+    public string? Email { get; set; }
+
+    public bool IsPlatformAdmin { get; set; } = true;
 
     public bool IsInRole(string role)
     {
-        return role == PlatformRoles.PlatformAdmin;
+        return IsPlatformAdmin &&
+            role == PlatformRoles.PlatformAdmin;
     }
 }
 

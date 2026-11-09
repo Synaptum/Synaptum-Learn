@@ -656,9 +656,10 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("UserId");
+
+                    b.HasIndex("SchoolId", "LearnerNumber")
+                        .IsUnique();
 
                     b.ToTable("LearnerProfiles", (string)null);
                 });
@@ -805,9 +806,10 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("UserId");
+
+                    b.HasIndex("SchoolId", "EmployeeNumber")
+                        .IsUnique();
 
                     b.ToTable("TeacherProfiles", (string)null);
                 });

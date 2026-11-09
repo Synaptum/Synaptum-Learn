@@ -6,8 +6,10 @@ using SynaptumLearn.Application;
 using SynaptumLearn.Persistence;
 using SynaptumLearn.Web.Services;
 using SynaptumLearn.Application.Common.Interfaces;
+using SynaptumLearn.Application.Common.Security;
 using SynaptumLearn.Web.ExceptionHandling;
 using SynaptumLearn.Web.Identity;
+
 //
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,7 @@ builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<ISchoolAdminAccessService, SchoolAdminAccessService>();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -27,6 +30,8 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = false;
+
+    options.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
