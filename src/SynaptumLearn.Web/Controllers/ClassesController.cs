@@ -11,6 +11,10 @@ using SynaptumLearn.Application.Classes.EnrollLearner;
 using SynaptumLearn.Application.Classes.ListEligibleLearners;
 using SynaptumLearn.Application.Classes.ListClassLearners;
 using SynaptumLearn.Application.Classes.TransferLearner;
+using SynaptumLearn.Application.Classes.AssignTeacher;
+using SynaptumLearn.Application.Classes.ListEligibleClassTeachers;
+using SynaptumLearn.Application.Classes.ListClassTeachers;
+using SynaptumLearn.Application.Classes.RemoveClassTeacher;
 using SynaptumLearn.Web.Models.Classes;
 
 namespace SynaptumLearn.Web.Controllers;
@@ -309,6 +313,192 @@ public sealed class ClassesController : Controller
     }
     #endregion
 
+    #region AssignTeacher
+    [HttpGet]
+    public async Task<IActionResult> AssignTeacher(
+        Guid classId,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var model = await BuildAssignTeacherModelAsync(
+                classId,
+                cancellationToken);
+
+            return View(model);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (InvalidOperationException)
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AssignTeacher(
+        AssignTeacherViewModel model,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (model.ClassId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            if (ModelState.IsValid &&
+                model.TeacherSubjectId.HasValue)
+            {
+                await _sender.Send(
+                    new AssignTeacherToClassCommand(
+                        model.TeacherSubjectId.Value,
+                        model.ClassId),
+                    cancellationToken);
+
+                TempData["SuccessMessage"] =
+                    "Teacher assigned to class successfully.";
+
+                return RedirectToAction(
+                    nameof(AssignTeacher),
+                    new { classId = model.ClassId });
+            }
+
+            return View(await BuildAssignTeacherModelAsync(
+                model.ClassId,
+                cancellationToken,
+                model.TeacherSubjectId));
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (InvalidOperationException ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+
+            try
+            {
+                return View(await BuildAssignTeacherModelAsync(
+                    model.ClassId,
+                    cancellationToken,
+                    model.TeacherSubjectId));
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+        }
+    }
+    #endregion
+
+    #region Teachers
+    [HttpGet]
+    public async Task<IActionResult> Teachers(
+        Guid classId,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var classes = await _sender.Send(
+                new ListClassesQuery(),
+                cancellationToken);
+
+            var schoolClass = classes.FirstOrDefault(
+                c => c.Id == classId);
+
+            if (schoolClass is null)
+            {
+                return NotFound();
+            }
+
+            var teachers = await _sender.Send(
+                new ListClassTeachersQuery(classId),
+                cancellationToken);
+
+            var model = new ClassTeachersViewModel
+            {
+                ClassId = schoolClass.Id,
+                ClassName = schoolClass.Name,
+                GradeName = schoolClass.GradeName,
+                AcademicYear = schoolClass.AcademicYear,
+                Teachers = teachers
+            };
+
+            return View(model);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (InvalidOperationException)
+        {
+            return NotFound();
+        }
+    }
+    #endregion
+
+    #region RemoveTeacher
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RemoveTeacher(
+        Guid assignmentId,
+        Guid classId,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (assignmentId == Guid.Empty ||
+                classId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            // Verify that the class belongs to this school.
+            var classes = await _sender.Send(
+                new ListClassesQuery(),
+                cancellationToken);
+
+            if (!classes.Any(c => c.Id == classId))
+            {
+                return NotFound();
+            }
+
+            // Verify that the assignment belongs to this class.
+            var teachers = await _sender.Send(
+                new ListClassTeachersQuery(classId),
+                cancellationToken);
+
+            if (!teachers.Any(t => t.AssignmentId == assignmentId))
+            {
+                return NotFound();
+            }
+
+            await _sender.Send(
+                new RemoveClassTeacherCommand(assignmentId),
+                cancellationToken);
+
+            TempData["SuccessMessage"] =
+                "Teacher removed from class successfully.";
+
+            return RedirectToAction(
+                nameof(Teachers),
+                new { classId });
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (InvalidOperationException)
+        {
+            return NotFound();
+        }
+    }
+    #endregion
+
     #region PrivateMethods
     private async Task PopulateGradesAsync(
         CreateClassViewModel model,
@@ -414,6 +604,45 @@ public sealed class ClassesController : Controller
         throw new InvalidOperationException(
             "The active enrollment was not found.");
     }
+
+    private async Task<AssignTeacherViewModel> BuildAssignTeacherModelAsync(
+        Guid classId,
+        CancellationToken cancellationToken,
+        Guid? selectedTeacherSubjectId = null)
+    {
+        var classes = await _sender.Send(
+            new ListClassesQuery(),
+            cancellationToken);
+
+        var schoolClass = classes.FirstOrDefault(c => c.Id == classId);
+
+        if (schoolClass is null)
+        {
+            throw new InvalidOperationException(
+                "The selected class was not found in your school.");
+        }
+
+        var eligibleTeachers = await _sender.Send(
+            new ListEligibleClassTeachersQuery(classId),
+            cancellationToken);
+
+        return new AssignTeacherViewModel
+        {
+            ClassId = classId,
+            ClassName = schoolClass.Name,
+            GradeName = schoolClass.GradeName,
+            AcademicYear = schoolClass.AcademicYear,
+            TeacherSubjectId = selectedTeacherSubjectId,
+            EligibleTeachers = eligibleTeachers
+                .Select(t => new SelectListItem
+                {
+                    Value = t.TeacherSubjectId.ToString(),
+                    Text = $"{t.TeacherName} — {t.SubjectName}"
+                })
+                .ToList()
+        };
+    }
+
     #endregion
 
 }

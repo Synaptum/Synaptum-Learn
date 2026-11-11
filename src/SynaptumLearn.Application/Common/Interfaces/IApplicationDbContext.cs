@@ -21,6 +21,7 @@ public interface IApplicationDbContext
     DbSet<Class> Classes { get; }
     DbSet<LearnerClass> LearnerClasses { get; }
     DbSet<TeacherSubject> TeacherSubjects { get; }
+    DbSet<TeacherClassSubject> TeacherClassSubjects { get; }
 
     DbSet<Grade> Grades { get; }
     DbSet<Subject> Subjects { get; }

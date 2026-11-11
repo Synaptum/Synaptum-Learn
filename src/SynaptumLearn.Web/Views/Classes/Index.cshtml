@@ -58,6 +58,16 @@
                                            class="btn btn-sm btn-outline-primary">
                                         Enroll Learner
                                     </a>
+
+                                    <a asp-action="AssignTeacher" asp-route-classId="@schoolClass.Id"
+                                           class="btn btn-sm btn-outline-primary">
+                                        Assign Teacher
+                                    </a>
+
+                                    <a asp-action="Teachers"                          asp-route-classId="@schoolClass.Id"
+                                           class="btn btn-sm btn-outline-secondary">
+                                        View Teachers
+                                    </a>
                                 </div>
                             </td>
                         </tr>

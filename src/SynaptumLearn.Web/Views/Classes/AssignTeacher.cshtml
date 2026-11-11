@@ -1,0 +1,68 @@
+@model SynaptumLearn.Web.Models.Classes.AssignTeacherViewModel
+
+@{
+    ViewData["Title"] = "Assign Teacher";
+}
+
+<div class="container mt-4">
+    <h2>Assign Teacher to Class</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>@Model.ClassName</h5>
+            <p class="mb-1">
+                <strong>Grade:</strong> @Model.GradeName
+            </p>
+            <p class="mb-0">
+                <strong>Academic Year:</strong> @Model.AcademicYear
+            </p>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <form asp-action="AssignTeacher" method="post">
+        @Html.AntiForgeryToken()
+
+        <input asp-for="ClassId" type="hidden" />
+
+        <div asp-validation-summary="ModelOnly"          class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="TeacherSubjectId"       class="form-label">
+                Teacher and Subject
+            </label>
+
+            <select asp-for="TeacherSubjectId"     asp-items="Model.EligibleTeachers"    class="form-select">
+                <option value="">-- Select Teacher and Subject --</option>
+            </select>
+
+            <span asp-validation-for="TeacherSubjectId"           class="text-danger"></span>
+        </div>
+
+        @if (Model.EligibleTeachers.Count == 0)
+        {
+            <div class="alert alert-info">
+                No eligible teacher-subject assignments are available
+                for this class.
+            </div>
+        }
+
+        <button type="submit"           class="btn btn-primary"     disabled="@(Model.EligibleTeachers.Count == 0)">
+            Assign Teacher
+        </button>
+
+        <a asp-action="Index"      class="btn btn-secondary">
+            Back to Classes
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -871,6 +871,47 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.ToTable("SchoolMemberships", (string)null);
                 });
 
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.TeacherClassSubject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClassId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TeacherSubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("TeacherSubjectId");
+
+                    b.HasIndex("SchoolId", "ClassId");
+
+                    b.HasIndex("SchoolId", "TeacherSubjectId", "ClassId")
+                        .IsUnique();
+
+                    b.ToTable("TeacherClassSubjects", (string)null);
+                });
+
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.TeacherProfile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1444,6 +1485,25 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.TeacherClassSubject", b =>
+                {
+                    b.HasOne("SynaptumLearn.Domain.Schools.Class", "Class")
+                        .WithMany("TeacherClassSubjects")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SynaptumLearn.Domain.Schools.TeacherSubject", "TeacherSubject")
+                        .WithMany("TeacherClassSubjects")
+                        .HasForeignKey("TeacherSubjectId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("TeacherSubject");
+                });
+
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.TeacherProfile", b =>
                 {
                     b.HasOne("SynaptumLearn.Domain.Schools.School", "School")
@@ -1528,6 +1588,8 @@ namespace SynaptumLearn.Persistence.Migrations
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.Class", b =>
                 {
                     b.Navigation("LearnerClasses");
+
+                    b.Navigation("TeacherClassSubjects");
                 });
 
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.LearnerProfile", b =>
@@ -1549,6 +1611,11 @@ namespace SynaptumLearn.Persistence.Migrations
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.TeacherProfile", b =>
                 {
                     b.Navigation("TeacherSubjects");
+                });
+
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.TeacherSubject", b =>
+                {
+                    b.Navigation("TeacherClassSubjects");
                 });
 
             modelBuilder.Entity("SynaptumLearn.Domain.Users.User", b =>

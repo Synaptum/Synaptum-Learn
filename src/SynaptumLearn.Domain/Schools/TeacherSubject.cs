@@ -10,4 +10,6 @@ public class TeacherSubject : TenantEntity
     public TeacherProfile TeacherProfile { get; set; } = null!;
     public Guid GradeSubjectId { get; set; }
     public GradeSubject GradeSubject { get; set; } = null!;
+    public ICollection<TeacherClassSubject> TeacherClassSubjects { get; set; }
+        = new List<TeacherClassSubject>();
 }

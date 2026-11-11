@@ -69,6 +69,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<AssessmentAttempt> AssessmentAttempts => Set<AssessmentAttempt>();
     public DbSet<LessonApproval> LessonApprovals => Set<LessonApproval>();
     public DbSet<TeacherSubject> TeacherSubjects => Set<TeacherSubject>();
+    public DbSet<TeacherClassSubject> TeacherClassSubjects => Set<TeacherClassSubject>();
     public DbSet<LessonProgress> LessonProgresses => Set<LessonProgress>();
     public DbSet<Grade> Grades => Set<Grade>();
     public DbSet<Subject> Subjects => Set<Subject>();

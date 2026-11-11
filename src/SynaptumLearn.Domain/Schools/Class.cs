@@ -16,4 +16,7 @@ public class Class : TenantEntity
 
     public ICollection<LearnerClass> LearnerClasses { get; set; }
         = new List<LearnerClass>();
+
+    public ICollection<TeacherClassSubject> TeacherClassSubjects { get; set; }
+        = new List<TeacherClassSubject>();
 }
