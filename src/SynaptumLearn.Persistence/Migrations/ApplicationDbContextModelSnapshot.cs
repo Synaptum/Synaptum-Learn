@@ -622,6 +622,105 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.ToTable("Subjects", (string)null);
                 });
 
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.Class", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AcademicYear")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GradeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GradeId");
+
+                    b.HasIndex("SchoolId", "GradeId", "AcademicYear", "Name")
+                        .IsUnique();
+
+                    b.ToTable("Classes", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Classes_AcademicYear", "[AcademicYear] BETWEEN 2000 AND 2100");
+                        });
+                });
+
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.LearnerClass", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AcademicYear")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ClassId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LearnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LeftAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("LearnerId");
+
+                    b.HasIndex("SchoolId", "LearnerId", "AcademicYear")
+                        .IsUnique()
+                        .HasFilter("[LeftAt] IS NULL");
+
+                    b.ToTable("LearnerClasses", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_LearnerClasses_AcademicYear", "[AcademicYear] BETWEEN 2000 AND 2100");
+
+                            t.HasCheckConstraint("CK_LearnerClasses_Dates", "[LeftAt] IS NULL OR [LeftAt] >= [EnrolledAt]");
+                        });
+                });
+
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.LearnerProfile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1277,6 +1376,36 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.Class", b =>
+                {
+                    b.HasOne("SynaptumLearn.Domain.Curriculum.Grade", "Grade")
+                        .WithMany()
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Grade");
+                });
+
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.LearnerClass", b =>
+                {
+                    b.HasOne("SynaptumLearn.Domain.Schools.Class", "Class")
+                        .WithMany("LearnerClasses")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SynaptumLearn.Domain.Schools.LearnerProfile", "Learner")
+                        .WithMany()
+                        .HasForeignKey("LearnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Learner");
+                });
+
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.LearnerProfile", b =>
                 {
                     b.HasOne("SynaptumLearn.Domain.Schools.School", "School")
@@ -1394,6 +1523,11 @@ namespace SynaptumLearn.Persistence.Migrations
             modelBuilder.Entity("SynaptumLearn.Domain.Curriculum.Subject", b =>
                 {
                     b.Navigation("GradeSubjects");
+                });
+
+            modelBuilder.Entity("SynaptumLearn.Domain.Schools.Class", b =>
+                {
+                    b.Navigation("LearnerClasses");
                 });
 
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.LearnerProfile", b =>

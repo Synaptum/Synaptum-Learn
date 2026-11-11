@@ -1,0 +1,76 @@
+@model SynaptumLearn.Web.Models.Classes.ClassRosterViewModel
+
+@{
+    ViewData["Title"] = "Class Roster";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2>@Model.ClassName</h2>
+            <p class="text-muted mb-0">
+                @Model.GradeName | Academic Year @Model.AcademicYear
+            </p>
+        </div>
+
+        <a asp-action="Enroll" asp-route-classId="@Model.ClassId" class="btn btn-primary">
+            Enroll Learner
+        </a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Class Summary</h5>
+            <p class="mb-0">
+                <strong>Active Learners:</strong> @Model.Learners.Count
+            </p>
+        </div>
+    </div>
+
+    @if (Model.Learners.Count == 0)
+    {
+        <div class="alert alert-info">
+            No learners are currently enrolled in this class.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Learner Number</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Enrolled On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var learner in Model.Learners)
+                    {
+                        <tr>
+                            <td>@learner.LearnerNumber</td>
+                            <td>@learner.FirstName</td>
+                            <td>@learner.LastName</td>
+                            <td>
+                                @learner.EnrolledAt.ToString("dd MMM yyyy")
+                            </td>
+                            <td>
+                                <a asp-action="Transfer" asp-route-enrollmentId="@learner.EnrollmentId"
+                                       class="btn btn-sm btn-outline-primary">
+                                    Transfer
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Back to Classes
+    </a>
+</div>

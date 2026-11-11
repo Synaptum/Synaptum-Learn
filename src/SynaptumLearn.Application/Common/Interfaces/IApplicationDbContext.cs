@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using SynaptumLearn.Domain.Analytics;
 using SynaptumLearn.Domain.Assessments;
 using SynaptumLearn.Domain.Content;
@@ -17,6 +18,8 @@ public interface IApplicationDbContext
     DbSet<SchoolMembership> SchoolMemberships { get; }
     DbSet<TeacherProfile> TeacherProfiles { get; }
     DbSet<LearnerProfile> LearnerProfiles { get; }
+    DbSet<Class> Classes { get; }
+    DbSet<LearnerClass> LearnerClasses { get; }
     DbSet<TeacherSubject> TeacherSubjects { get; }
 
     DbSet<Grade> Grades { get; }
@@ -39,6 +42,14 @@ public interface IApplicationDbContext
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     Task ExecuteInTransactionAsync(
-    Func<CancellationToken, Task> operation,
-    CancellationToken cancellationToken);
+        Func<CancellationToken, Task> operation,
+        CancellationToken cancellationToken);
+
+    Task<IDbContextTransaction> BeginTransactionAsync(
+        CancellationToken cancellationToken = default);
+
+    Task<LearnerClass?> GetActiveEnrollmentForUpdateAsync(
+        Guid enrollmentId,
+        Guid schoolId,
+        CancellationToken cancellationToken = default);
 }

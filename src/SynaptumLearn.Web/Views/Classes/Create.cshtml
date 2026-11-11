@@ -1,0 +1,71 @@
+
+@model SynaptumLearn.Web.Models.Classes.CreateClassViewModel
+
+@{
+    ViewData["Title"] = "Create Class";
+}
+
+<div class="container mt-4">
+    <h2>Create Class</h2>
+
+    <p class="text-muted">
+        Create a class for a specific grade and academic year.
+    </p>
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">
+                Class Name
+            </label>
+            <input asp-for="Name"
+                   class="form-control"
+                   placeholder="e.g. Grade 10A" />
+            <span asp-validation-for="Name"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GradeId" class="form-label">
+                Grade
+            </label>
+            <select asp-for="GradeId"
+                    asp-items="Model.Grades"
+                    class="form-select">
+                <option value="">-- Select Grade --</option>
+            </select>
+            <span asp-validation-for="GradeId"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AcademicYear" class="form-label">
+                Academic Year
+            </label>
+            <input asp-for="AcademicYear"
+                   type="number"
+                   min="2000"
+                   max="2100"
+                   class="form-control" />
+            <span asp-validation-for="AcademicYear"
+                  class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Class
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

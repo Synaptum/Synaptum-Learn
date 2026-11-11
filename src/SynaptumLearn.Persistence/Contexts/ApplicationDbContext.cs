@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using MediatR;
 using SynaptumLearn.Persistence.Identity;
 using SynaptumLearn.Domain.Schools;
@@ -41,6 +42,27 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         });
     }
 
+    public Task<IDbContextTransaction> BeginTransactionAsync(
+    CancellationToken cancellationToken = default)
+    {
+        return Database.BeginTransactionAsync(cancellationToken);
+    }
+
+    public async Task<LearnerClass?> GetActiveEnrollmentForUpdateAsync(
+        Guid enrollmentId,
+        Guid schoolId,
+        CancellationToken cancellationToken = default)
+    {
+        return await LearnerClasses
+            .FromSqlInterpolated($@"
+            SELECT *
+            FROM [LearnerClasses] WITH (UPDLOCK, HOLDLOCK)
+            WHERE [Id] = {enrollmentId}
+              AND [SchoolId] = {schoolId}
+              AND [LeftAt] IS NULL")
+            .SingleOrDefaultAsync(cancellationToken);
+    }
+
     public DbSet<Assessment> Assessments => Set<Assessment>();
     public DbSet<Question> Questions => Set<Question>();
     public DbSet<AnswerOption> AnswerOptions => Set<AnswerOption>();
@@ -59,6 +81,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<SchoolMembership> SchoolMemberships => Set<SchoolMembership>();
     public DbSet<TeacherProfile> TeacherProfiles => Set<TeacherProfile>();
     public DbSet<LearnerProfile> LearnerProfiles => Set<LearnerProfile>();
+    public DbSet<Class> Classes => Set<Class>();
+    public DbSet<LearnerClass> LearnerClasses => Set<LearnerClass>();
     public DbSet<EntitySequence> EntitySequences => Set<EntitySequence>();
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

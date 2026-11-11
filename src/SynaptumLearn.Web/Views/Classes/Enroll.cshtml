@@ -1,0 +1,66 @@
+@model SynaptumLearn.Web.Models.Classes.EnrollLearnerViewModel
+
+@{
+    ViewData["Title"] = "Enroll Learner";
+}
+
+<div class="container mt-4">
+    <h2>Enroll Learner</h2>
+
+    <p class="text-muted">
+        Assign a learner to the selected class.
+    </p>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">@Model.ClassName</h5>
+
+            <p class="mb-1">
+                <strong>Grade:</strong> @Model.GradeName
+            </p>
+
+            <p class="mb-0">
+                <strong>Academic Year:</strong> @Model.AcademicYear
+            </p>
+        </div>
+    </div>
+
+    <form asp-action="Enroll" method="post">
+        @Html.AntiForgeryToken()
+
+        <input asp-for="ClassId" type="hidden" />
+
+        <div asp-validation-summary="ModelOnly"  class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="LearnerProfileId" class="form-label">
+                Select Learner
+            </label>
+
+            <select asp-for="LearnerProfileId"     asp-items="Model.Learners"        class="form-select">
+                <option value="">-- Select Learner --</option>
+            </select>
+
+            <span asp-validation-for="LearnerProfileId"         class="text-danger"></span>
+        </div>
+
+        @if (Model.Learners.Count == 0)
+        {
+            <div class="alert alert-info">
+                No eligible learners are available for this class.
+            </div>
+        }
+
+        <button type="submit"  class="btn btn-primary"                disabled="@(Model.Learners.Count == 0)">
+            Enroll Learner
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
