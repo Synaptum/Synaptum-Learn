@@ -23,12 +23,34 @@ public class TopicConfiguration : IEntityTypeConfiguration<Topic>
             .WithMany(x => x.Topics)
             .HasForeignKey(x => x.GradeSubjectId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         builder.HasMany(x => x.Lessons)
             .WithOne(x => x.Topic)
             .HasForeignKey(x => x.TopicId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(x => x.GradeSubjectId);
+        builder.HasIndex(x => new
+        {
+            x.GradeSubjectId,
+            x.Term,
+            x.Order
+        }).IsUnique();
+
+        builder.Property(x => x.Term)
+            .IsRequired();
+
+        builder.Property(x => x.Order)
+            .IsRequired();
+
+        builder.ToTable(t =>
+        {
+            t.HasCheckConstraint(
+                "CK_Topics_Term",
+                "[Term] BETWEEN 1 AND 4");
+
+            t.HasCheckConstraint(
+                "CK_Topics_Order",
+                "[Order] > 0");
+        });
     }
 }

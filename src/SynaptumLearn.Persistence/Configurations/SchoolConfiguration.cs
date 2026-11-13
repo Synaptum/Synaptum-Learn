@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SynaptumLearn.Domain.Enums;
 
 using SynaptumLearn.Domain.Schools;
 
@@ -62,5 +63,11 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
             .WithOne(x => x.School)
             .HasForeignKey(x => x.SchoolId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Property(x => x.CurriculumAccessMode)
+            .HasConversion<int>()
+            .HasDefaultValue(CurriculumAccessMode.Progressive)
+            .HasSentinel((CurriculumAccessMode)0)
+            .IsRequired();
     }
 }

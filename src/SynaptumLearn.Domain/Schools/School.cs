@@ -13,6 +13,7 @@ public class School : BaseAuditableEntity
     public string Slug { get; set; } = null!;
     public string Code { get; set; } = null!;
     public SchoolStatus Status { get; set; }
+    public CurriculumAccessMode CurriculumAccessMode { get; set; } = CurriculumAccessMode.Progressive;
     public ICollection<SchoolMembership> SchoolMemberships { get; set; } = new List<SchoolMembership>();
     public ICollection<TeacherProfile> TeacherProfiles { get; set; } = new List<TeacherProfile>();
     public ICollection<LearnerProfile> LearnerProfiles { get; set; } = new List<LearnerProfile>();

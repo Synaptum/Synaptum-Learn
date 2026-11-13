@@ -506,6 +506,12 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.Property<Guid?>("LastModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Term")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -513,9 +519,15 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GradeSubjectId");
+                    b.HasIndex("GradeSubjectId", "Term", "Order")
+                        .IsUnique();
 
-                    b.ToTable("Topics", (string)null);
+                    b.ToTable("Topics", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Topics_Order", "[Order] > 0");
+
+                            t.HasCheckConstraint("CK_Topics_Term", "[Term] BETWEEN 1 AND 4");
+                        });
                 });
 
             modelBuilder.Entity("SynaptumLearn.Domain.Curriculum.Grade", b =>
@@ -779,6 +791,11 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.Property<Guid?>("CreatedByUserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CurriculumAccessMode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<string>("EMISNumber")
                         .IsRequired()

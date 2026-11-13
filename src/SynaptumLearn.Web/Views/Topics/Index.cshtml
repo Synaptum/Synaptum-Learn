@@ -1,0 +1,95 @@
+@model IReadOnlyList<SynaptumLearn.Application.Curriculum.Topics.ListTopics.TopicListItemDto>
+
+@{
+    ViewData["Title"] = "Curriculum Topics";
+}
+
+<div class="container py-4">
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success" role="alert">
+            @successMessage
+        </div>
+    }
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Curriculum Topics</h2>
+            <p class="text-muted mb-0">
+                Manage topics in Prime Synaptum's official curriculum.
+            </p>
+        </div>
+
+        <a asp-controller="Topics"    asp-action="Create"      class="btn btn-primary">
+            Create Topic
+        </a>
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Grade</th>
+                            <th>Subject</th>
+                            <th>Term</th>
+                            <th>Position</th>
+                            <th>Topic</th>
+                            <th>Created On</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    No curriculum topics have been created.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var topic in Model)
+                            {
+                                <tr>
+                                    <td>@topic.GradeName</td>
+                                    <td>
+                                        @topic.SubjectName
+                                        <span class="text-muted">
+                                            (@topic.SubjectCode)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            Term @topic.Term
+                                        </span>
+                                    </td>
+                                    <td>@topic.Order</td>
+                                    <td>
+                                        <div class="fw-semibold">
+                                            @topic.Title
+                                        </div>
+                                        @if (!string.IsNullOrWhiteSpace(topic.Description))
+                                        {
+                                            <div class="text-muted small">
+                                                @topic.Description
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @topic.CreatedAt.ToString("dd MMM yyyy")
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
