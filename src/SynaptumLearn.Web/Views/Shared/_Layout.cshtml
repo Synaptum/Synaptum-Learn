@@ -1,5 +1,27 @@
-﻿<!DOCTYPE html>
+﻿@using SynaptumLearn.Application.Common.Interfaces
+@inject ISchoolAdminAccessService SchoolAdminAccessService
+
+@{
+    var canManageSchool = false;
+
+    if (User.Identity?.IsAuthenticated == true)
+    {
+        try
+        {
+            await SchoolAdminAccessService
+                .GetAuthorizedSchoolIdAsync();
+
+            canManageSchool = true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            canManageSchool = false;
+        }
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +32,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SynaptumLearn.Web.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -38,11 +61,17 @@
                             </li>
                         }
 
-                        @if (User.Identity?.IsAuthenticated == true)
+                        @if (canManageSchool)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="SchoolUsers" asp-action="Index">
                                     School Users
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="CurriculumSettings" asp-action="Index">
+                                    Curriculum Settings
                                 </a>
                             </li>
                         }

@@ -1,0 +1,100 @@
+
+@model SynaptumLearn.Web.Models.CurriculumSettings.CurriculumSettingsViewModel
+@using SynaptumLearn.Domain.Enums
+
+@{
+    ViewData["Title"] = "Curriculum Access Settings";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <h2 class="mb-2">Curriculum Access Settings</h2>
+
+            <p class="text-muted mb-4">
+                Control which academic terms learners can access
+                at your school.
+            </p>
+
+            @if (TempData["SuccessMessage"] is string successMessage)
+            {
+                <div class="alert alert-success" role="alert">
+                    @successMessage
+                </div>
+            }
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+
+                    <form asp-controller="CurriculumSettings"
+                          asp-action="Index"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3"></div>
+
+                        <h5 class="mb-3">Choose an access mode</h5>
+
+                        <div class="form-check border rounded p-3 ps-5 mb-3">
+                            <input asp-for="AccessMode"
+                                   class="form-check-input"
+                                   type="radio"
+                                   id="progressiveMode"
+                                   value="@CurriculumAccessMode.Progressive" />
+
+                            <label class="form-check-label"
+                                   for="progressiveMode">
+                                <strong>Progressive Access</strong>
+
+                                <span class="d-block text-muted mt-1">
+                                    Learners can access content from the
+                                    current term and previous terms.
+                                    Future terms remain unavailable.
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="form-check border rounded p-3 ps-5 mb-3">
+                            <input asp-for="AccessMode"
+                                   class="form-check-input"
+                                   type="radio"
+                                   id="fullYearMode"
+                                   value="@CurriculumAccessMode.FullYear" />
+
+                            <label class="form-check-label"
+                                   for="fullYearMode">
+                                <strong>Full Year Access</strong>
+
+                                <span class="d-block text-muted mt-1">
+                                    Learners can access curriculum content
+                                    from all four academic terms.
+                                </span>
+                            </label>
+                        </div>
+
+                        <span asp-validation-for="AccessMode"
+                              class="text-danger d-block mb-3"></span>
+
+                        <div class="alert alert-info">
+                            <strong>Important:</strong>
+                            Changing this setting does not override
+                            lesson publication requirements or
+                            sequential lesson unlocking rules.
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Save Settings
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
