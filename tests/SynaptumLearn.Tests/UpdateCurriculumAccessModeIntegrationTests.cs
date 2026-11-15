@@ -44,7 +44,7 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
         await Assert.ThrowsAsync<UnauthorizedAccessException>(
             () => handler.Handle(
                 new UpdateCurriculumAccessModeCommand(
-                    CurriculumAccessMode.FullYear),
+                    CurriculumAccessMode.FullYear, 1),
                 CancellationToken.None));
     }
 
@@ -55,7 +55,7 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
             new UpdateCurriculumAccessModeCommandValidator();
 
         var command = new UpdateCurriculumAccessModeCommand(
-            (CurriculumAccessMode)999);
+            (CurriculumAccessMode)999, 1);
 
         var result = await validator.ValidateAsync(command);
 
@@ -95,7 +95,7 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
         await Assert.ThrowsAsync<UnauthorizedAccessException>(
             () => handler.Handle(
                 new UpdateCurriculumAccessModeCommand(
-                    CurriculumAccessMode.FullYear),
+                    CurriculumAccessMode.FullYear, 1),
                 CancellationToken.None));
     }
 
@@ -191,9 +191,13 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
                 new GetCurriculumAccessModeQuery(),
                 CancellationToken.None);
 
+
             Assert.Equal(
                 CurriculumAccessMode.Progressive,
-                initialMode);
+                initialMode.AccessMode);
+
+            Assert.Equal(1, initialMode.CurrentTerm);
+
 
             var updateHandler =
                 new UpdateCurriculumAccessModeCommandHandler(
@@ -203,12 +207,19 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
             await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
                 () => updateHandler.Handle(
                     new UpdateCurriculumAccessModeCommand(
-                        (CurriculumAccessMode)999),
+                        (CurriculumAccessMode)999, 1),
+                    CancellationToken.None));
+
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
+                () => updateHandler.Handle(
+                    new UpdateCurriculumAccessModeCommand(
+                        CurriculumAccessMode.Progressive,
+                        5),
                     CancellationToken.None));
 
             await updateHandler.Handle(
                 new UpdateCurriculumAccessModeCommand(
-                    CurriculumAccessMode.FullYear),
+                    CurriculumAccessMode.FullYear, 3),
                 CancellationToken.None);
 
             // Clear tracked entities so verification reads the database.
@@ -224,13 +235,23 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
                 CurriculumAccessMode.FullYear,
                 savedMode);
 
+            var savedTerm = await context.Schools
+                .AsNoTracking()
+                .Where(s => s.Id == school.Id)
+                .Select(s => s.CurrentTerm)
+                .SingleAsync();
+
+            Assert.Equal(3, savedTerm);
+
             var updatedMode = await queryHandler.Handle(
                 new GetCurriculumAccessModeQuery(),
                 CancellationToken.None);
 
             Assert.Equal(
                 CurriculumAccessMode.FullYear,
-                updatedMode);
+                updatedMode.AccessMode);
+
+            Assert.Equal(3, updatedMode.CurrentTerm);
 
             var otherSchoolMode = await context.Schools
                 .AsNoTracking()
@@ -241,6 +262,14 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
             Assert.Equal(
                 CurriculumAccessMode.Progressive,
                 otherSchoolMode);
+
+            var otherSchoolTerm = await context.Schools
+                .AsNoTracking()
+                .Where(s => s.Id == otherSchool.Id)
+                .Select(s => s.CurrentTerm)
+                .SingleAsync();
+
+            Assert.Equal(1, otherSchoolTerm);
 
         }
         finally
@@ -317,9 +346,31 @@ public sealed class UpdateCurriculumAccessModeIntegrationTests
         await Assert.ThrowsAsync<UnauthorizedAccessException>(
             () => handler.Handle(
                 new UpdateCurriculumAccessModeCommand(
-                    (CurriculumAccessMode)999),
+                    (CurriculumAccessMode)999, 1),
                 CancellationToken.None));
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(5)]
+    [InlineData(-1)]
+    public async Task InvalidCurrentTerm_IsRejectedByValidator(
+        int currentTerm)
+    {
+        var validator =
+            new UpdateCurriculumAccessModeCommandValidator();
+
+        var command = new UpdateCurriculumAccessModeCommand(
+            CurriculumAccessMode.Progressive,
+            currentTerm);
+
+        var result = await validator.ValidateAsync(command);
+
+        Assert.False(result.IsValid);
+
+        Assert.Contains(
+            result.Errors,
+            error => error.PropertyName == "CurrentTerm");
+    }
 
 }

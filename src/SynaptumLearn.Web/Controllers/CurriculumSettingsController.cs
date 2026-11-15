@@ -24,13 +24,14 @@ public sealed class CurriculumSettingsController : Controller
     {
         try
         {
-            var mode = await _sender.Send(
+            var settings = await _sender.Send(
                 new GetCurriculumAccessModeQuery(),
                 cancellationToken);
 
             return View(new CurriculumSettingsViewModel
             {
-                AccessMode = mode
+                AccessMode = settings.AccessMode,
+                CurrentTerm = settings.CurrentTerm
             });
         }
         catch (UnauthorizedAccessException)
@@ -54,11 +55,12 @@ public sealed class CurriculumSettingsController : Controller
         {
             await _sender.Send(
                 new UpdateCurriculumAccessModeCommand(
-                    model.AccessMode),
+                    model.AccessMode,
+                    model.CurrentTerm),
                 cancellationToken);
 
             TempData["SuccessMessage"] =
-                "Curriculum access settings updated successfully.";
+                "Curriculum settings updated successfully.";
 
             return RedirectToAction(nameof(Index));
         }

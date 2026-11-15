@@ -15,5 +15,9 @@ public sealed class UpdateCurriculumAccessModeCommandValidator
                 mode == CurriculumAccessMode.FullYear)
             .WithMessage(
                 "Select a valid curriculum access mode.");
+
+        RuleFor(x => x.CurrentTerm)
+            .InclusiveBetween(1, 4)
+            .WithMessage("The current academic term must be between 1 and 4.");
     }
 }

@@ -792,6 +792,11 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.Property<Guid?>("CreatedByUserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("CurrentTerm")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
                     b.Property<int>("CurriculumAccessMode")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -845,7 +850,10 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Schools_CurrentTerm", "[CurrentTerm] BETWEEN 1 AND 4");
+                        });
                 });
 
             modelBuilder.Entity("SynaptumLearn.Domain.Schools.SchoolMembership", b =>

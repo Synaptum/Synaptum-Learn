@@ -11,4 +11,9 @@ public sealed class CurriculumSettingsViewModel
     [Display(Name = "Curriculum Access Mode")]
     public CurriculumAccessMode AccessMode { get; set; }
         = CurriculumAccessMode.Progressive;
+
+    [Required]
+    [Range(1, 4, ErrorMessage = "The current academic term must be between 1 and 4.")]
+    [Display(Name = "Current Academic Term")]
+    public int CurrentTerm { get; set; } = 1;
 }

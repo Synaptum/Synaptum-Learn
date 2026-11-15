@@ -2,12 +2,11 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SynaptumLearn.Application.Common.Interfaces;
-using SynaptumLearn.Domain.Enums;
 
 namespace SynaptumLearn.Application.Schools.GetCurriculumAccessMode;
 
 public sealed class GetCurriculumAccessModeQueryHandler
-    : IRequestHandler<GetCurriculumAccessModeQuery, CurriculumAccessMode>
+    : IRequestHandler<GetCurriculumAccessModeQuery, CurriculumSettingsDto>
 {
     private readonly IApplicationDbContext _context;
     private readonly ISchoolAdminAccessService _schoolAdminAccessService;
@@ -20,7 +19,7 @@ public sealed class GetCurriculumAccessModeQueryHandler
         _schoolAdminAccessService = schoolAdminAccessService;
     }
 
-    public async Task<CurriculumAccessMode> Handle(
+    public async Task<CurriculumSettingsDto> Handle(
         GetCurriculumAccessModeQuery request,
         CancellationToken cancellationToken)
     {
@@ -39,6 +38,8 @@ public sealed class GetCurriculumAccessModeQueryHandler
                 "The authorized school could not be found.");
         }
 
-        return school.CurriculumAccessMode;
+        return new CurriculumSettingsDto(
+            school.CurriculumAccessMode,
+            school.CurrentTerm);
     }
 }

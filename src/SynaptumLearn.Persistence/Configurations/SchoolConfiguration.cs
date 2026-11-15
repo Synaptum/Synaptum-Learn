@@ -69,5 +69,16 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
             .HasDefaultValue(CurriculumAccessMode.Progressive)
             .HasSentinel((CurriculumAccessMode)0)
             .IsRequired();
+
+        builder.Property(x => x.CurrentTerm)
+            .HasDefaultValue(1)
+            .HasSentinel(0)
+            .IsRequired();
+
+        builder.ToTable(t =>
+            t.HasCheckConstraint(
+                "CK_Schools_CurrentTerm",
+                "[CurrentTerm] BETWEEN 1 AND 4"));
+
     }
 }

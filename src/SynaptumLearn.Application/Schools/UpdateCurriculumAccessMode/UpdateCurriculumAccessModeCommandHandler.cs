@@ -36,6 +36,13 @@ public sealed class UpdateCurriculumAccessModeCommandHandler
                 "Unsupported curriculum access mode.");
         }
 
+        if (request.CurrentTerm is < 1 or > 4)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(request.CurrentTerm),
+                "The current academic term must be between 1 and 4.");
+        }
+
         var school = await _context.Schools
             .SingleOrDefaultAsync(
                 x => x.Id == schoolId,
@@ -48,6 +55,7 @@ public sealed class UpdateCurriculumAccessModeCommandHandler
         }
 
         school.CurriculumAccessMode = request.AccessMode;
+        school.CurrentTerm = request.CurrentTerm;
 
         await _context.SaveChangesAsync(cancellationToken);
     }
