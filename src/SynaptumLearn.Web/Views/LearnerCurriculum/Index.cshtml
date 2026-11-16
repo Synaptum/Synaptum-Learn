@@ -1,0 +1,97 @@
+@model SynaptumLearn.Application.Curriculum.LearnerCurriculum.LearnerCurriculumDto
+@using SynaptumLearn.Domain.Enums
+
+@{
+    ViewData["Title"] = "My Curriculum";
+
+    var isFullYear = Model.AccessMode == CurriculumAccessMode.FullYear;
+}
+
+<div class="container py-4">
+    <div class="mb-4">
+        <h1 class="h2">My Curriculum</h1>
+        <p class="text-muted">
+            Explore your subjects and learning topics.
+        </p>
+    </div>
+
+    <div class="alert alert-info mb-4">
+        @if (isFullYear)
+        {
+            <span>
+                Full-year curriculum access is enabled.
+                You can explore topics from all four terms.
+            </span>
+        }
+        else
+        {
+            <span>
+                Your school is currently in Term @Model.CurrentTerm.
+                Topics up to this term are available.
+            </span>
+        }
+    </div>
+
+    @if (!Model.Subjects.Any())
+    {
+        <div class="alert alert-secondary">
+            No subjects are currently available for your grade.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var subject in Model.Subjects)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="h5 card-title">
+                                @subject.SubjectName
+                            </h2>
+
+                            <p class="text-muted small">
+                                @subject.SubjectCode
+                            </p>
+
+                            @if (!subject.Topics.Any())
+                            {
+                                <p class="text-muted">
+                                    No topics available yet.
+                                </p>
+                            }
+                            else
+                            {
+                                @foreach (var termGroup in
+                                                                    subject.Topics.GroupBy(t => t.Term)
+                                                                        .OrderBy(g => g.Key))
+                                {
+                                    <h3 class="h6 mt-3">
+                                        Term @termGroup.Key
+                                    </h3>
+
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var topic in termGroup)
+                                        {
+                                            <li class="list-group-item px-0">
+                                                <strong>@topic.Title</strong>
+
+                                                @if (!string.IsNullOrWhiteSpace(
+                                                                                                    topic.Description))
+                                                {
+                                                    <p class="small text-muted mb-0">
+                                                        @topic.Description
+                                                    </p>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

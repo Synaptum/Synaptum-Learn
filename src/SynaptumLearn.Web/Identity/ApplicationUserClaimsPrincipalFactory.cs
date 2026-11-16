@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SynaptumLearn.Domain.Enums;
 using SynaptumLearn.Persistence.Contexts;
 using SynaptumLearn.Persistence.Identity;
 
@@ -33,12 +34,44 @@ public sealed class ApplicationUserClaimsPrincipalFactory
             .SingleOrDefaultAsync(u =>
                 u.IdentityUserId == user.Id);
 
+
         if (domainUser is not null)
         {
             identity.AddClaim(new Claim(
                 "DomainUserId",
                 domainUser.Id.ToString()));
+
+            if (domainUser.IsActive)
+            {
+                var schoolIds = await _dbContext.SchoolMemberships
+                    .AsNoTracking()
+                    .Where(m =>
+                        m.UserId == domainUser.Id &&
+                        m.IsActive)
+                    .Join(
+                        _dbContext.Schools.AsNoTracking(),
+                        membership => membership.SchoolId,
+                        school => school.Id,
+                        (membership, school) => new
+                        {
+                            school.Id,
+                            school.Status
+                        })
+                    .Where(x => x.Status == SchoolStatus.Active)
+                    .Select(x => x.Id)
+                    .Distinct()
+                    .Take(2)
+                    .ToListAsync();
+
+                if (schoolIds.Count == 1)
+                {
+                    identity.AddClaim(new Claim(
+                        "SchoolId",
+                        schoolIds[0].ToString()));
+                }
+            }
         }
+
 
         return identity;
     }
