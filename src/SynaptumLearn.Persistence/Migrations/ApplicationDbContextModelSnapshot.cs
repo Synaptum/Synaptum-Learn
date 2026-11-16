@@ -230,6 +230,9 @@ namespace SynaptumLearn.Persistence.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsRequiredForProgression")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -249,7 +252,9 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId");
+                    b.HasIndex("LessonId")
+                        .IsUnique()
+                        .HasFilter("[IsRequiredForProgression] = 1");
 
                     b.ToTable("Assessments", (string)null);
                 });

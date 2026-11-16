@@ -12,6 +12,7 @@ public class Assessment : BaseAuditableEntity
     public string Instructions { get; set; } = null!;
     public int PassMark { get; set; }
     public bool IsPublished { get; set; }
+    public bool IsRequiredForProgression { get; set; }
     public ICollection<Question> Questions { get; set; } = new List<Question>();
     public ICollection<AssessmentAttempt> Attempts { get; set; } = new List<AssessmentAttempt>();
 }

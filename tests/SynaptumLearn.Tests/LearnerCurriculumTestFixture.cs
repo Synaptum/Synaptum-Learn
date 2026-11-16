@@ -20,6 +20,8 @@ public sealed class LearnerCurriculumTestFixture : IAsyncDisposable
     private readonly UserManager<ApplicationUser> _userManager;
 
     private readonly string _uniqueId = Guid.NewGuid().ToString("N");
+    private readonly List<string> _additionalUserEmails = new();
+    private Guid _adminId;
 
     private string AdminEmail => $"curriculum-admin-{_uniqueId}@example.com";
     private string LearnerEmail => $"curriculum-learner-{_uniqueId}@example.com";
@@ -106,6 +108,8 @@ public sealed class LearnerCurriculumTestFixture : IAsyncDisposable
                 School.Id),
             CancellationToken.None);
 
+        _adminId = adminId;
+
         CurrentUser.UserId = adminId;
         CurrentUser.IsAuthenticated = true;
         CurrentUser.IsPlatformAdmin = false;
@@ -147,6 +151,44 @@ public sealed class LearnerCurriculumTestFixture : IAsyncDisposable
 
                 if (gradeSubjectIds.Count > 0)
                 {
+                    var topicIds = await Context.Topics
+                        .Where(t => gradeSubjectIds.Contains(t.GradeSubjectId))
+                        .Select(t => t.Id)
+                        .ToListAsync();
+
+                    var lessonIds = await Context.Lessons
+                        .Where(l => topicIds.Contains(l.TopicId))
+                        .Select(l => l.Id)
+                        .ToListAsync();
+
+                    if (lessonIds.Count > 0)
+                    {
+                        var assessmentIds = await Context.Assessments
+                            .Where(a => lessonIds.Contains(a.LessonId))
+                            .Select(a => a.Id)
+                            .ToListAsync();
+
+                        await Context.AssessmentAttempts
+                            .Where(a => assessmentIds.Contains(a.AssessmentId))
+                            .ExecuteDeleteAsync();
+
+                        await Context.LessonProgresses
+                            .Where(p => lessonIds.Contains(p.LessonId))
+                            .ExecuteDeleteAsync();
+
+                        await Context.LessonApprovals
+                            .Where(a => lessonIds.Contains(a.LessonId))
+                            .ExecuteDeleteAsync();
+
+                        await Context.Assessments
+                            .Where(a => lessonIds.Contains(a.LessonId))
+                            .ExecuteDeleteAsync();
+
+                        await Context.Lessons
+                            .Where(l => lessonIds.Contains(l.Id))
+                            .ExecuteDeleteAsync();
+                    }
+
                     await Context.Topics
                         .Where(t => gradeSubjectIds.Contains(t.GradeSubjectId))
                         .ExecuteDeleteAsync();
@@ -183,7 +225,8 @@ public sealed class LearnerCurriculumTestFixture : IAsyncDisposable
                 await Context.SaveChangesAsync();
             }
 
-            foreach (var email in new[] { LearnerEmail, AdminEmail })
+            foreach (var email in _additionalUserEmails
+                .Concat(new[] { LearnerEmail, AdminEmail }))
             {
                 var user = await Context.BusinessUsers
                     .SingleOrDefaultAsync(x => x.Email == email);
@@ -230,6 +273,52 @@ public sealed class LearnerCurriculumTestFixture : IAsyncDisposable
         {
             _scope.Dispose();
             _provider.Dispose();
+        }
+    }
+
+    public async Task<Guid> CreateAdditionalLearnerAsync()
+    {
+        var email = $"curriculum-extra-{Guid.NewGuid():N}@example.com";
+
+        var provisioningService =
+            Services.GetRequiredService<IIdentityUserProvisioningService>();
+
+        var accessService =
+            Services.GetRequiredService<ISchoolAdminAccessService>();
+
+        var handler = new CreateSchoolUserCommandHandler(
+            accessService,
+            Context,
+            provisioningService);
+
+        var originalUserId = CurrentUser.UserId;
+        var originalSchoolId = CurrentUser.SchoolId;
+
+        try
+        {
+            // The provisioning handler uses the current school context.
+            CurrentUser.UserId = _adminId;
+            CurrentUser.SchoolId = School.Id;
+
+            var learnerId = await handler.Handle(
+                new CreateSchoolUserCommand(
+                    "Additional",
+                    "Learner",
+                    email,
+                    "TestPassword123!",
+                    SchoolUserAccountType.Learner,
+                    LearnerNumber: $"LRN-{Guid.NewGuid():N}"[..12],
+                    GradeId: Grade.Id),
+                CancellationToken.None);
+
+            _additionalUserEmails.Add(email);
+
+            return learnerId;
+        }
+        finally
+        {
+            CurrentUser.UserId = originalUserId;
+            CurrentUser.SchoolId = originalSchoolId;
         }
     }
 

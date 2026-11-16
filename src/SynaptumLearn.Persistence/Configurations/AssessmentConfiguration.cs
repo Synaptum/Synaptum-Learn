@@ -12,6 +12,10 @@ public class AssessmentConfiguration : IEntityTypeConfiguration<Assessment>
 
         builder.HasKey(x => x.Id);
 
+        builder.HasIndex(x => x.LessonId)
+            .IsUnique()
+            .HasFilter("[IsRequiredForProgression] = 1");
+
         builder.Property(x => x.Title)
             .HasMaxLength(200)
             .IsRequired();
