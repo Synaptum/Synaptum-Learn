@@ -63,8 +63,8 @@
                             else
                             {
                                 @foreach (var termGroup in
-                                                                    subject.Topics.GroupBy(t => t.Term)
-                                                                        .OrderBy(g => g.Key))
+                                                                                                    subject.Topics.GroupBy(t => t.Term)
+                                                                                                        .OrderBy(g => g.Key))
                                 {
                                     <h3 class="h6 mt-3">
                                         Term @termGroup.Key
@@ -74,10 +74,13 @@
                                         @foreach (var topic in termGroup)
                                         {
                                             <li class="list-group-item px-0">
-                                                <strong>@topic.Title</strong>
+                                                <a asp-controller="LearnerCurriculum"                                                   asp-action="Lessons"
+                                                       asp-route-topicId="@topic.TopicId"     class="fw-semibold text-decoration-none">
+                                                    @topic.Title
+                                                </a>
 
                                                 @if (!string.IsNullOrWhiteSpace(
-                                                                                                    topic.Description))
+                                                                                                                                                    topic.Description))
                                                 {
                                                     <p class="small text-muted mb-0">
                                                         @topic.Description

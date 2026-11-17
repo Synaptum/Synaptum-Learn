@@ -16,6 +16,7 @@ public sealed class LearnerCurriculumController : Controller
         _sender = sender;
     }
 
+    #region Index
     [HttpGet]
     public async Task<IActionResult> Index(
         CancellationToken cancellationToken)
@@ -33,4 +34,34 @@ public sealed class LearnerCurriculumController : Controller
             return Forbid();
         }
     }
+    #endregion
+
+    #region Lessons
+    [HttpGet]
+    public async Task<IActionResult> Lessons(
+        Guid topicId,
+        CancellationToken cancellationToken)
+    {
+        if (topicId == Guid.Empty)
+        {
+            return BadRequest("A valid topic is required.");
+        }
+
+        try
+        {
+            var lessons = await _sender.Send(
+                new GetLearnerLessonsQuery(topicId),
+                cancellationToken);
+
+            ViewData["TopicId"] = topicId;
+
+            return View(lessons);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+    }
+    #endregion
+
 }
