@@ -22,11 +22,11 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
 
         builder.Property(x => x.Status)
             .HasConversion<int>();
-        
+
         builder.HasOne(x => x.Topic)
             .WithMany(x => x.Lessons)
             .HasForeignKey(x => x.TopicId)
-            .OnDelete(DeleteBehavior.Restrict); 
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(x => x.LessonApprovals)
             .WithOne(x => x.Lesson)
@@ -43,6 +43,7 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
             .HasForeignKey(x => x.LessonId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(x => x.TopicId);
+        builder.HasIndex(x => new { x.TopicId, x.Order })
+            .IsUnique();
     }
 }

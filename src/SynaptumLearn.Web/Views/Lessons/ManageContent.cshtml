@@ -1,0 +1,113 @@
+@model SynaptumLearn.Web.Models.Lessons.ManageLessonContentViewModel
+@using SynaptumLearn.Domain.Content
+
+@{
+    ViewData["Title"] = "Manage Lesson Content";
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div>
+            <h1 class="h3 mb-2">Manage Lesson Content</h1>
+
+            <h2 class="h5">@Model.LessonTitle</h2>
+
+            <span class="badge bg-secondary">
+                @Model.Status
+            </span>
+        </div>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            Back to Lessons
+        </a>
+        <a asp-action="PublicationReadiness"   asp-route-id="@Model.LessonId" class="btn btn-outline-success">
+            Check Publication Readiness
+        </a>
+    </div>
+
+    @if (Model.Status == LessonStatus.Draft)
+    {
+        <div class="mb-4">
+            <a asp-action="AddContent" asp-route-id="@Model.LessonId" class="btn btn-primary">
+                Add Content Block
+            </a>
+        </div>
+    }
+
+    @if (Model.Contents.Count == 0)
+    {
+        <div class="alert alert-info">
+            This lesson does not contain any learning material yet.
+            Add the first content block to begin preparing it.
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-column gap-3">
+
+            @for (var i = 0; i < Model.Contents.Count; i++)
+            {
+                var block = Model.Contents[i];
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <strong>
+                            @block.Order. @block.Title
+                        </strong>
+
+                        <span class="badge bg-light text-dark">
+                            @block.Type
+                        </span>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="text-muted" style="white-space: pre-wrap; overflow-wrap: anywhere;">@block.Content</div>
+                    </div>
+
+                    @if (Model.Status == LessonStatus.Draft)
+                    {
+                        <div class="card-footer d-flex flex-wrap gap-2">
+
+                            <form asp-action="MoveContent" asp-route-id="@block.Id" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden" name="direction" value="Up" />
+
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" disabled="@(i == 0)">
+                                    Move Up
+                                </button>
+                            </form>
+
+                            <form asp-action="MoveContent" asp-route-id="@block.Id" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden" name="direction" value="Down" />
+
+                                <button type="submit" class="btn btn-sm btn-outline-secondary"
+                                        disabled="@(i == Model.Contents.Count - 1)">
+                                    Move Down
+                                </button>
+                            </form>
+
+                            <a asp-action="EditContent" asp-route-id="@block.Id" class="btn btn-sm btn-outline-primary">
+                                Edit Block
+                            </a>
+
+                            <form asp-action="DeleteContent" asp-route-id="@block.Id" method="post"
+                                  onsubmit="return confirm('Delete this content block? This cannot be undone.');">
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Delete Block
+                                </button>
+                            </form>
+
+                        </div>
+                    }
+                </div>
+            }
+
+        </div>
+    }
+</div>

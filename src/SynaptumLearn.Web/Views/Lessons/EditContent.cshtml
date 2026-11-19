@@ -1,0 +1,71 @@
+@model SynaptumLearn.Web.Models.Lessons.EditLessonContentViewModel
+@using SynaptumLearn.Domain.Content
+
+@{
+    ViewData["Title"] = "Edit Content Block";
+}
+
+<div class="container py-4">
+    <h1 class="h3 mb-2">Edit Content Block</h1>
+
+    <p class="text-muted mb-4">
+        Lesson: @Model.LessonTitle
+    </p>
+
+    <form asp-action="EditContent" method="post">
+        @Html.AntiForgeryToken()
+
+        <input asp-for="ContentId" type="hidden" />
+        <input asp-for="LessonId" type="hidden" />
+
+        <div asp-validation-summary="ModelOnly"          class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Type" class="form-label"></label>
+
+            <select asp-for="Type"                    asp-items="Html.GetEnumSelectList<LessonContentType>()"                   class="form-select">
+                <option value="">Select content type</option>
+            </select>
+
+            <span asp-validation-for="Type"                class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+
+            <input asp-for="Title"               class="form-control"             maxlength="200" />
+
+            <span asp-validation-for="Title"           class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Content" class="form-label"></label>
+
+            <textarea asp-for="Content"            class="form-control"              rows="8"               maxlength="10000"></textarea>
+
+            <span asp-validation-for="Content"             class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Order" class="form-label"></label>
+
+            <input asp-for="Order"           type="number"          min="1"        class="form-control" />
+
+            <span asp-validation-for="Order"      class="text-danger"></span>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+                Save Changes
+            </button>
+
+            <a asp-action="ManageContent"               asp-route-id="@Model.LessonId" class="btn btn-outline-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

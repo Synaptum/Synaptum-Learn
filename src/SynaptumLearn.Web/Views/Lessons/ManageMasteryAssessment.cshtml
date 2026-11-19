@@ -1,0 +1,137 @@
+@model SynaptumLearn.Application.Curriculum.Assessments.GetMasteryAssessment.MasteryAssessmentDto
+
+@{
+    ViewData["Title"] = "Manage Mastery Assessment";
+}
+
+<div class="container py-4">
+
+    <h2>@Model.Title</h2>
+
+    <p class="text-muted">
+        Lesson: @Model.LessonTitle
+    </p>
+
+    <div class="mb-3">
+        <strong>Pass Mark:</strong> @Model.PassMark%
+        <span class="ms-3">
+            <strong>Status:</strong>
+            @(Model.IsPublished ? "Published" : "Draft")
+        </span>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Instructions))
+    {
+        <div class="alert alert-light border">
+            @Model.Instructions
+        </div>
+    }
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+
+        @if (!Model.IsPublished)
+        {
+            <a asp-action="AddAssessmentQuestion" asp-route-id="@Model.Id" class="btn btn-primary">
+                Add Question
+            </a>
+
+        }
+
+        <a asp-action="PublicationReadiness" asp-route-id="@Model.LessonId" class="btn btn-outline-secondary">
+            Lesson Publication Readiness
+        </a>
+
+    </div>
+
+    <h4>Questions (@Model.Questions.Count)</h4>
+
+    @if (Model.Questions.Count == 0)
+    {
+        <div class="alert alert-info">
+            No questions have been added yet.
+        </div>
+    }
+    else
+    {
+        @foreach (var question in Model.Questions)
+        {
+
+            <div class="card mb-3">
+                <div class="card-body">
+
+                    <h5>Question @question.Order</h5>
+
+                    <p style="white-space: pre-wrap; overflow-wrap: anywhere;">@question.Text</p>
+
+                    <p class="text-muted">
+                        Marks: @question.Marks
+                        |
+                        Answer options: @question.AnswerOptionCount
+                    </p>
+
+                    @if (question.AnswerOptions.Count == 0)
+                    {
+                        <p class="text-warning">
+                            No answer options added yet.
+                        </p>
+                    }
+                    else
+                    {
+                        <ul class="list-group mb-3">
+                            @foreach (var option in question.AnswerOptions)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    <span class="me-3" style="overflow-wrap: anywhere;">
+                                        @option.Text
+                                    </span>
+
+                                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                                        @if (option.IsCorrect)
+                                        {
+                                            <span class="badge bg-success">
+                                                Correct
+                                            </span>
+                                        }
+
+                                        @if (!Model.IsPublished)
+                                        {
+                                            <a asp-action="EditAnswerOption" asp-route-id="@option.Id"
+                                                   class="btn btn-sm btn-outline-secondary">
+                                                Edit
+                                            </a>
+
+                                            <form asp-action="DeleteAnswerOption" asp-route-id="@option.Id" method="post"
+                                                  onsubmit="return confirm('Delete this answer option?');">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    @if (!Model.IsPublished)
+                    {
+                        <a asp-action="AddAnswerOption" asp-route-id="@question.Id" class="btn btn-sm btn-outline-primary">
+                            Add Answer Option
+                        </a>
+
+                        <a asp-action="EditAssessmentQuestion"          asp-route-id="@question.Id"      class="btn btn-sm btn-outline-secondary">
+                            Edit Question
+                        </a>
+                    }
+
+                </div>
+            </div>
+
+        }
+    }
+
+</div>

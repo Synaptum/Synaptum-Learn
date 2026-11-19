@@ -1,0 +1,74 @@
+@model SynaptumLearn.Application.Curriculum.Lessons.PublicationReadiness.LessonPublicationReadinessDto
+
+@{
+    ViewData["Title"] = "Lesson Publication Readiness";
+}
+
+<div class="container py-4">
+
+    <h2>Lesson Publication Readiness</h2>
+
+    <p class="text-muted">
+        Review the requirements before publishing this lesson.
+    </p>
+
+    @if (Model.IsReady)
+    {
+        <div class="alert alert-success">
+            <strong>Ready for publication.</strong>
+            This lesson meets the current publication requirements.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <strong>Not ready for publication.</strong>
+            Resolve the following issues before publishing.
+        </div>
+
+        <ul class="list-group mb-4">
+            @foreach (var issue in Model.Issues)
+            {
+                <li class="list-group-item">
+                    <span class="text-danger me-2">✕</span>
+                    @issue
+                </li>
+            }
+        </ul>
+    }
+
+    <div class="d-flex flex-wrap gap-2">
+
+        <a asp-action="ManageContent" asp-route-id="@Model.LessonId" class="btn btn-outline-primary">
+            Manage Content
+        </a>
+
+        <a asp-action="PublicationReadiness" asp-route-id="@Model.LessonId" class="btn btn-outline-secondary">
+            Refresh Readiness
+        </a>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            Back to Lessons
+        </a>
+
+        <a asp-action="MasteryAssessment"   asp-route-id="@Model.LessonId"   class="btn btn-outline-primary">
+            Manage Mastery Assessment
+        </a>
+
+    </div>
+
+    @if (Model.IsReady)
+    {
+        <div class="mt-4">
+            <p class="text-success">
+                All publication checks passed.
+            </p>
+
+            <p class="text-muted">
+                The publishing action will be enabled
+                once the publication command is implemented.
+            </p>
+        </div>
+    }
+
+</div>

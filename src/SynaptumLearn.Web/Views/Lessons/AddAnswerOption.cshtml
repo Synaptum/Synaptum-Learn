@@ -1,0 +1,58 @@
+@model SynaptumLearn.Web.Models.Assessments.AddAnswerOptionViewModel
+
+@{
+    ViewData["Title"] = "Add Answer Option";
+}
+
+<div class="container py-4">
+
+    <h2>Add Answer Option</h2>
+
+    <div class="alert alert-light border">
+        <strong>Question:</strong>
+        @Model.QuestionText
+    </div>
+
+    <form asp-action="AddAnswerOption" method="post">
+        @Html.AntiForgeryToken()
+
+        <input asp-for="QuestionId" type="hidden" />
+        <input asp-for="AssessmentId" type="hidden" />
+
+        <div asp-validation-summary="All"             class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Text" class="form-label">
+                Answer Text
+            </label>
+
+            <textarea asp-for="Text" class="form-control"   rows="3"></textarea>
+
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-4">
+            <input asp-for="IsCorrect"                   class="form-check-input" />
+
+            <label asp-for="IsCorrect" class="form-check-label">
+                This is the correct answer
+            </label>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit"                    class="btn btn-primary">
+                Save Answer Option
+            </button>
+
+            <a asp-action="ManageMasteryAssessment"               asp-route-id="@Model.AssessmentId"
+                   class="btn btn-outline-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -388,7 +388,8 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("TopicId", "Order")
+                        .IsUnique();
 
                     b.ToTable("Lessons", (string)null);
                 });
@@ -480,7 +481,8 @@ namespace SynaptumLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId");
+                    b.HasIndex("LessonId", "Order")
+                        .IsUnique();
 
                     b.ToTable("LessonContents", (string)null);
                 });

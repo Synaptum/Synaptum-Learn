@@ -27,5 +27,8 @@ public class LessonContentConfiguration : IEntityTypeConfiguration<LessonContent
             .WithMany(x => x.LessonContents)
             .HasForeignKey(x => x.LessonId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(x => new { x.LessonId, x.Order })
+            .IsUnique();
     }
 }
